@@ -4,10 +4,11 @@
 
 # Session Data files
 .RData
-.RDataTmp
 
 # User-specific files
 .Ruserdata
+.DS_Store
+.Rprofile
 
 # Example code in package build process
 *-Ex.R
@@ -39,11 +40,9 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# pkgdown site
-docs/
-
-# translation temp files
-po/*~
-
-# RStudio Connect folder
-rsconnect/
+# old scripts or data
+/old
+packrat/lib*/
+/prelim_output
+/prelim_scripts
+/prelim_data
