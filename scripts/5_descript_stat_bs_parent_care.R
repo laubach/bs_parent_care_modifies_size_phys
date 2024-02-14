@@ -348,82 +348,82 @@
 ###############################################################################
   
   ### 4.1 Additional data tidying based on data exploration
-    ## a) Extract early development total brooding duration for each nest
-      early_nest_brood <- nestling_parent_care %>%
-        select(nest.id, sample.state, total.brooding.duration, 
-               total.brooding.duration.prop, tert.tot.brood) %>%
-        filter(sample.state == 'early') %>%
-        distinct(nest.id, .keep_all = T) %>%
-        #mutate(row = row_number()) %>% # used to create unique identifier
-        pivot_wider(names_from = sample.state,
-                    values_from = c(total.brooding.duration,
-                                    total.brooding.duration.prop,
-                                    tert.tot.brood))
-        #select(-row)
-      
-    # b) Extract mid development total brooding duration for each nest
-      mid_nest_brood <- nestling_parent_care %>%
-        select(nest.id, sample.state, total.brooding.duration, 
-               total.brooding.duration.prop, tert.tot.brood) %>%
-        filter(sample.state == 'mid') %>%
-        distinct(nest.id, .keep_all = T) %>%
-        pivot_wider(names_from = sample.state,
-                    values_from = c(total.brooding.duration,
-                                    total.brooding.duration.prop,
-                                    tert.tot.brood))
-        
-    ## c) Left join early and mid brooding
-      brood <- early_nest_brood %>%
-        left_join(mid_nest_brood, by = c('nest.id' = 'nest.id'),
-                  copy = F)
-
-    ## d) Rename variables
-      brood <- brood %>%
-        rename(brood.dur.early = total.brooding.duration_early,
-               prop.brood.dur.early = total.brooding.duration.prop_early,
-               tert.brood.early = tert.tot.brood_early,
-               brood.dur.mid = total.brooding.duration_mid,
-               prop.brood.dur.mid = total.brooding.duration.prop_mid,
-               tert.brood.mid = tert.tot.brood_mid)
-
-    ## e) Extract mid development total feeding visits for each nest
-      mid_nest_feed <- nestling_parent_care %>%
-        select(nest.id, sample.state, total.feeding.visits, 
-               total.feeding.visits.rate, tert.tot.feed) %>%
-        filter(sample.state == 'mid') %>%
-        distinct(nest.id, .keep_all = T) %>%
-        pivot_wider(names_from = sample.state,
-                    values_from = c(total.feeding.visits,
-                                    total.feeding.visits.rate, tert.tot.feed))
-      
-    # f) Extract late development feeding visits for each nest
-      late_nest_feed <- nestling_parent_care %>%
-        select(nest.id, sample.state, total.feeding.visits, 
-               total.feeding.visits.rate, tert.tot.feed) %>%
-        filter(sample.state == 'late') %>%
-        distinct(nest.id, .keep_all = T) %>%
-        pivot_wider(names_from = sample.state,
-                    values_from = c(total.feeding.visits,
-                                    total.feeding.visits.rate, tert.tot.feed))
-      
-    ## g) Left join early and mid brooding
-      feed <- late_nest_feed %>%
-        left_join(mid_nest_feed, by = c('nest.id' = 'nest.id'),
-                  copy = F)
-      
-    ## h) Rename variables
-      feed <- feed %>%
-        rename(feed.vis.mid = total.feeding.visits_mid,
-               feed.vis.rate.mid = total.feeding.visits.rate_mid,
-               tert.feed.mid = tert.tot.feed_mid,
-               feed.vis.late = total.feeding.visits_late,
-               feed.vis.rate.late = total.feeding.visits.rate_late,
-               tert.feed.late = tert.tot.feed_late)
-      
-    ## i) Left join feed to brood data frame
-      brood_feed <- brood %>%
-        left_join(feed, by = c('nest.id' = 'nest.id'),
-                  copy = F)
+    # ## a) Extract early development total brooding duration for each nest
+    #   early_nest_brood <- nestling_parent_care %>%
+    #     select(nest.id, sample.state, total.brooding.duration, 
+    #            total.brooding.duration.prop, tert.tot.brood) %>%
+    #     filter(sample.state == 'early') %>%
+    #     distinct(nest.id, .keep_all = T) %>%
+    #     #mutate(row = row_number()) %>% # used to create unique identifier
+    #     pivot_wider(names_from = sample.state,
+    #                 values_from = c(total.brooding.duration,
+    #                                 total.brooding.duration.prop,
+    #                                 tert.tot.brood))
+    #     #select(-row)
+    #   
+    # # b) Extract mid development total brooding duration for each nest
+    #   mid_nest_brood <- nestling_parent_care %>%
+    #     select(nest.id, sample.state, total.brooding.duration, 
+    #            total.brooding.duration.prop, tert.tot.brood) %>%
+    #     filter(sample.state == 'mid') %>%
+    #     distinct(nest.id, .keep_all = T) %>%
+    #     pivot_wider(names_from = sample.state,
+    #                 values_from = c(total.brooding.duration,
+    #                                 total.brooding.duration.prop,
+    #                                 tert.tot.brood))
+    #     
+    # ## c) Left join early and mid brooding
+    #   brood <- early_nest_brood %>%
+    #     left_join(mid_nest_brood, by = c('nest.id' = 'nest.id'),
+    #               copy = F)
+    # 
+    # ## d) Rename variables
+    #   brood <- brood %>%
+    #     rename(brood.dur.early = total.brooding.duration_early,
+    #            prop.brood.dur.early = total.brooding.duration.prop_early,
+    #            tert.brood.early = tert.tot.brood_early,
+    #            brood.dur.mid = total.brooding.duration_mid,
+    #            prop.brood.dur.mid = total.brooding.duration.prop_mid,
+    #            tert.brood.mid = tert.tot.brood_mid)
+    # 
+    # ## e) Extract mid development total feeding visits for each nest
+    #   mid_nest_feed <- nestling_parent_care %>%
+    #     select(nest.id, sample.state, total.feeding.visits, 
+    #            total.feeding.visits.rate, tert.tot.feed) %>%
+    #     filter(sample.state == 'mid') %>%
+    #     distinct(nest.id, .keep_all = T) %>%
+    #     pivot_wider(names_from = sample.state,
+    #                 values_from = c(total.feeding.visits,
+    #                                 total.feeding.visits.rate, tert.tot.feed))
+    #   
+    # # f) Extract late development feeding visits for each nest
+    #   late_nest_feed <- nestling_parent_care %>%
+    #     select(nest.id, sample.state, total.feeding.visits, 
+    #            total.feeding.visits.rate, tert.tot.feed) %>%
+    #     filter(sample.state == 'late') %>%
+    #     distinct(nest.id, .keep_all = T) %>%
+    #     pivot_wider(names_from = sample.state,
+    #                 values_from = c(total.feeding.visits,
+    #                                 total.feeding.visits.rate, tert.tot.feed))
+    #   
+    # ## g) Left join early and mid brooding
+    #   feed <- late_nest_feed %>%
+    #     left_join(mid_nest_feed, by = c('nest.id' = 'nest.id'),
+    #               copy = F)
+    #   
+    # ## h) Rename variables
+    #   feed <- feed %>%
+    #     rename(feed.vis.mid = total.feeding.visits_mid,
+    #            feed.vis.rate.mid = total.feeding.visits.rate_mid,
+    #            tert.feed.mid = tert.tot.feed_mid,
+    #            feed.vis.late = total.feeding.visits_late,
+    #            feed.vis.rate.late = total.feeding.visits.rate_late,
+    #            tert.feed.late = tert.tot.feed_late)
+    #   
+    # ## i) Left join feed to brood data frame
+    #   brood_feed <- brood %>%
+    #     left_join(feed, by = c('nest.id' = 'nest.id'),
+    #               copy = F)
       
     ## j) Get observation start time in usable format
       parent_care$obs.start.time.split <- 
@@ -443,7 +443,7 @@
     ## k) Make site a factor
       parent_care$site <- as.factor(parent_care$site)
       
-    ## l)  Make nestID a factor
+    ## l) Make nestID a factor
       parent_care$nest.id <- 
         as.factor(parent_care$nest.id)
       
@@ -489,9 +489,10 @@
                   copy = F)  
       
     ## p) Clean up environment
-      rm(disturb_data, early_nest_brood, mid_nest_brood, 
-                 mid_nest_feed, late_nest_feed, govee_daily,
-         nestl_merged, noaa, prim_merged)
+      rm(disturb_data, nestl_merged, noaa, prim_merged, govee_daily
+         #, early_nest_brood, mid_nest_brood, mid_nest_feed, 
+         #late_nest_feed, brood, feed
+         )
       
     
 
@@ -671,65 +672,66 @@
       # each individual...while holding constant effect of other covariates
       
 
-  ### 6.3 Calculate BLUPs from parental care data set (parent_care)
-    ## a) Brooding BLUPs
-      # Model using lmer 
-      brooding_blups_lmm <- lmer((total.brooding.duration/60) ~ scale(nestling.age) + 
-                                   scale(nestling.number) + scale(obs.med.temp) + 
-                                   scale(disturb.min) +
-                                   offset(obs.duration/3600) +
-                                   (1|nest.id),
-                                 data = subset(parent_care,
-                                          #obs.state != 'early' &
-                                          is.na(total.brooding.duration) == F &
-                                          is.na(nestling.age) == F &
-                                          is.na(nestling.number) == F &
-                                          is.na(obs.med.temp) == F),
-      )
-    
-      plot(brooding_blups_lmm)
-      # Doesn't look great
-      summary(brooding_blups_lmm)
-      
-      
-  ### 6.4 Extract brooding BLUPs, individual variation in brooding effort
-    ## a) Generate model summary
-      ranef(brooding_blups_lmm) # random effect
-      fixef(brooding_blups_lmm) # fixed effect
-      coef(brooding_blups_lmm) # fixed effect
-      
-    ## b) Eextract BLUPs from mixed model object
-      brooding_blups <- as.data.frame(ranef(brooding_blups_lmm)) # extract ranef as
-      # a dataframe, BLUPs = rand effects + intercept (from poiss/neg. binom)
-      
-    ## c) Rename variables in blups table
-      brooding_blups <- brooding_blups %>%
-        rename('nest.id' = 'grp') %>%
-        rename('brooding.ranef' = 'condval') %>%
-        rename('brooding.ranef.sd' = 'condsd') %>%
-        select(c('nest.id', 'brooding.ranef', 'brooding.ranef.sd'))
-      
-    ## d) extract fixed effect (intercept) from poisson/neg. binomial model
-      brooding.intrcpt <- (fixef(brooding_blups_lmm)[[1]])[[1]] # fixed effect
-      
-    ## f) Create a new variable that is ranef plus model intercept.
-      brooding_blups <-  brooding_blups  %>%
-        mutate(brood.blup = brooding.intrcpt + brooding.ranef)
+  # ### 6.3 Calculate BLUPs from parental care data set (parent_care)
+  #   ## a) Brooding BLUPs
+  #     # Model using lmer 
+  #     brooding_blups_lmm <- lmer((total.brooding.duration/60) ~ scale(nestling.age) + 
+  #                                  scale(nestling.number) + scale(obs.med.temp) + 
+  #                                  scale(disturb.min) +
+  #                                  offset(obs.duration/3600) +
+  #                                  (1|nest.id),
+  #                                data = subset(parent_care,
+  #                                         #obs.state != 'early' &
+  #                                         is.na(total.brooding.duration) == F &
+  #                                         is.na(nestling.age) == F &
+  #                                         is.na(nestling.number) == F &
+  #                                         is.na(obs.med.temp) == F),
+  #     )
+  #   
+  #     plot(brooding_blups_lmm)
+  #     # Doesn't look great
+  #     summary(brooding_blups_lmm)
+  #     
+  #     
+  # ### 6.4 Extract brooding BLUPs, individual variation in brooding effort
+  #   ## a) Generate model summary
+  #     ranef(brooding_blups_lmm) # random effect
+  #     fixef(brooding_blups_lmm) # fixed effect
+  #     coef(brooding_blups_lmm) # fixed effect
+  #     
+  #   ## b) Eextract BLUPs from mixed model object
+  #     brooding_blups <- as.data.frame(ranef(brooding_blups_lmm)) # extract ranef as
+  #     # a dataframe, BLUPs = rand effects + intercept (from poiss/neg. binom)
+  #     
+  #   ## c) Rename variables in blups table
+  #     brooding_blups <- brooding_blups %>%
+  #       rename('nest.id' = 'grp') %>%
+  #       rename('brooding.ranef' = 'condval') %>%
+  #       rename('brooding.ranef.sd' = 'condsd') %>%
+  #       select(c('nest.id', 'brooding.ranef', 'brooding.ranef.sd'))
+  #     
+  #   ## d) extract fixed effect (intercept) from poisson/neg. binomial model
+  #     brooding.intrcpt <- (fixef(brooding_blups_lmm)[[1]])[[1]] # fixed effect
+  #     
+  #   ## f) Create a new variable that is ranef plus model intercept.
+  #     brooding_blups <-  brooding_blups  %>%
+  #       mutate(brood.blup = brooding.intrcpt + brooding.ranef)
 
       
   ### 6.5 Tidy BLUPs data 
     ## a) join BLUPs
-      care_blups <- feeding_blups %>%
-        left_join(brooding_blups, by = c('nest.id' = 'nest.id'),
-                  copy = F)
+      care_blups <- feeding_blups 
+        # %>%
+        # left_join(brooding_blups, by = c('nest.id' = 'nest.id'),
+        #           copy = F)
       
     ## b) Create parental care categorical variable based on feeding BLUPs
       care_blups <- care_blups %>%
         mutate(feed.indx =  as.integer(Hmisc::cut2(feed.blup.exp, g=2)))
       
-    ## c) Create parental care categorical variable based on feeding BLUPs
-      care_blups <- care_blups %>%
-        mutate(brood.indx =  as.integer(Hmisc::cut2(brood.blup, g=2)))
+    # ## c) Create parental care categorical variable based on feeding BLUPs
+    #   care_blups <- care_blups %>%
+    #     mutate(brood.indx =  as.integer(Hmisc::cut2(brood.blup, g=2)))
       
     ## d) Re-label the brood.indx factor levels
       care_blups <- care_blups %>%
@@ -750,139 +752,139 @@
                                                    levels = c("low", "avg"
                                                               # , "hi"
                                                  )))
-      
-    ## f) Re-label the brood.indx factor levels
-      care_blups <- care_blups %>%
-        mutate(brood.indx = case_when(brood.indx == 1
-                           ~ c('low'),
-                           brood.indx == 2
-                           ~ c('avg')
-                           # ,
-                           # brood.indx == 3
-                           # ~ c('hi')
-                           ))
-      
-    ## g) Re-code *nominal* factor (with ordered levels)
-      # Set levels (ordering) of brood.indx variable 
-      care_blups <- transform(care_blups, 
-                              brood.indx = factor(brood.indx,
-                                                    levels = c("low", "avg"
-                                                               # , "hi"
-                                                  )))
-    
-    ## h) Combine feeding and brooding BLUPs
-      care_blups <- care_blups %>%
-        mutate(care.indx = feed.blup.exp + brood.blup) %>% 
-        mutate(care.indx =  as.integer(Hmisc::cut2(care.indx, g=2)))
-      
-    ## i) Re-label the care.indx.3 factor levels
-      care_blups <- care_blups %>%
-        mutate(care.indx = case_when(care.indx == 1
-                           ~ c('low'),
-                           care.indx == 2
-                           ~ c('avg')
-                           # ,
-                           # care.indx == 3
-                           # ~ c('hi')
-                           ))
-      
-    ## j) Re-code *nominal* factor (with ordered levels)
-      # Set levels (ordering) of brood.indx variable 
-      care_blups <- transform(care_blups, 
-                              care.indx = factor(care.indx,
-                                                    levels = c("low", "avg"
-                                                               # , "hi"
-                                                 )))
-      
-      
-  ### 6.6 Summarize parental care data
-    #NOTE: Create index based on 3 behaviors (early brooding, mid feeding,
-      # and late feeding) 
-      
-    ## a) Create parental care behavior sum adding tertile values for total 
-        # early brooding duration and total mid and late feeding visits
-      brood_feed <- brood_feed %>%
-        rowwise() %>%
-        mutate(care.sum.3 = sum(tert.brood.early, tert.feed.mid, 
-                                 tert.feed.late, na.rm = T))  %>%
-        mutate(care.sum.3 = na_if(care.sum.3, 0)) %>%
-        ungroup()
-        
-    ## b) Create parental care behavior possible total to account for 
-      # missing data
-      brood_feed <- brood_feed %>%
-        mutate(care.tot.3 = case_when(
-                !is.na(tert.brood.early) &
-                !is.na(tert.feed.mid) &
-                !is.na(tert.feed.late)
-                  ~ 9,
-                is.na(tert.brood.early) &
-                !is.na(tert.feed.mid) &
-                !is.na(tert.feed.late)
-                ~ 6,
-                !is.na(tert.brood.early) &
-                is.na(tert.feed.mid) &
-                !is.na(tert.feed.late)
-                ~ 6,
-                !is.na(tert.brood.early) &
-                !is.na(tert.feed.mid) &
-                is.na(tert.feed.late)
-                ~ 6,
-                is.na(tert.brood.early) &
-                is.na(tert.feed.mid) &
-                !is.na(tert.feed.late)
-                ~ 3,
-                is.na(tert.brood.early) &
-                !is.na(tert.feed.mid) &
-                is.na(tert.feed.late)
-                ~ 3,
-                !is.na(tert.brood.early) &
-                is.na(tert.feed.mid) &
-                is.na(tert.feed.late)
-                ~ 3)) 
-      
-    ## c) Create continuous score of parental care behaviors 
-        # sum of behavior tertile/total possible tertile sum
-      brood_feed <- brood_feed %>%
-        mutate(care.indx.cont.3 = care.sum.3/care.tot.3) %>%
-        mutate(care.indx.3 =  as.integer(Hmisc::cut2(care.indx.cont.3, g=3)))
-      
-            # Hmisc alternative using cut and quantile   
-            #    (cut(care.indx.cont.3, 
-            #         quantile(care.indx.cont.3, probs=0:3/3,
-            #                  na.rm = T), 
-            #         include.lowest = T)))
-      # don't use ntile, which allows the same value to occur in mult. quantile         
-      #as.factor(ntile(care.indx.cont.3, 3))) 
 
-    ## d) Re-label the care.indx.3 factor levels
-      brood_feed <- brood_feed %>%
-        mutate(care.indx.3 =
-                 case_when(care.indx.3 == 1
-                           ~ c('low'),
-                           care.indx.3 == 2
-                           ~ c('avg'),
-                           care.indx.3 == 3
-                           ~ c('hi')))
+    # ## f) Re-label the brood.indx factor levels
+    #   care_blups <- care_blups %>%
+    #     mutate(brood.indx = case_when(brood.indx == 1
+    #                        ~ c('low'),
+    #                        brood.indx == 2
+    #                        ~ c('avg')
+    #                        # ,
+    #                        # brood.indx == 3
+    #                        # ~ c('hi')
+    #                        ))
+    # 
+    # ## g) Re-code *nominal* factor (with ordered levels)
+    #   # Set levels (ordering) of brood.indx variable
+    #   care_blups <- transform(care_blups,
+    #                           brood.indx = factor(brood.indx,
+    #                                                 levels = c("low", "avg"
+    #                                                            # , "hi"
+    #                                               )))
 
-    ## e) Re-code *nominal* factor (with ordered levels)
-     # Set levels (ordering) of care.indx.3 variable 
-      brood_feed <- transform(brood_feed, 
-                              care.indx.3 = factor(care.indx.3,
-                                                 levels = c("low", "avg", 
-                                                            "hi")))
+    # ## h) Combine feeding and brooding BLUPs
+    #   care_blups <- care_blups %>%
+    #     mutate(care.indx = feed.blup.exp + brood.blup) %>% 
+    #     mutate(care.indx =  as.integer(Hmisc::cut2(care.indx, g=2)))
+    #   
+    # ## i) Re-label the care.indx.3 factor levels
+    #   care_blups <- care_blups %>%
+    #     mutate(care.indx = case_when(care.indx == 1
+    #                        ~ c('low'),
+    #                        care.indx == 2
+    #                        ~ c('avg')
+    #                        # ,
+    #                        # care.indx == 3
+    #                        # ~ c('hi')
+    #                        ))
+    #   
+    # ## j) Re-code *nominal* factor (with ordered levels)
+    #   # Set levels (ordering) of brood.indx variable 
+    #   care_blups <- transform(care_blups, 
+    #                           care.indx = factor(care.indx,
+    #                                                 levels = c("low", "avg"
+    #                                                            # , "hi"
+    #                                              )))
+    #   
       
-      class(brood_feed$care.indx.3)
-      
-    ## f) Select columns 
-      brood_feed <- brood_feed %>%
-        select(c(nest.id, care.indx.3))
-        
-    ## f) Left join brood_feed to care_blups 
-      brood_feed <- care_blups %>%
-        left_join(brood_feed, by = c('nest.id' = 'nest.id'),
-                  copy = F)
-      
+  # ### 6.6 Summarize parental care data
+  #   #NOTE: Create index based on 3 behaviors (early brooding, mid feeding,
+  #     # and late feeding) 
+  #     
+  #   ## a) Create parental care behavior sum adding tertile values for total 
+  #       # early brooding duration and total mid and late feeding visits
+  #     brood_feed <- brood_feed %>%
+  #       rowwise() %>%
+  #       mutate(care.sum.3 = sum(tert.brood.early, tert.feed.mid, 
+  #                                tert.feed.late, na.rm = T))  %>%
+  #       mutate(care.sum.3 = na_if(care.sum.3, 0)) %>%
+  #       ungroup()
+  #       
+  #   ## b) Create parental care behavior possible total to account for 
+  #     # missing data
+  #     brood_feed <- brood_feed %>%
+  #       mutate(care.tot.3 = case_when(
+  #               !is.na(tert.brood.early) &
+  #               !is.na(tert.feed.mid) &
+  #               !is.na(tert.feed.late)
+  #                 ~ 9,
+  #               is.na(tert.brood.early) &
+  #               !is.na(tert.feed.mid) &
+  #               !is.na(tert.feed.late)
+  #               ~ 6,
+  #               !is.na(tert.brood.early) &
+  #               is.na(tert.feed.mid) &
+  #               !is.na(tert.feed.late)
+  #               ~ 6,
+  #               !is.na(tert.brood.early) &
+  #               !is.na(tert.feed.mid) &
+  #               is.na(tert.feed.late)
+  #               ~ 6,
+  #               is.na(tert.brood.early) &
+  #               is.na(tert.feed.mid) &
+  #               !is.na(tert.feed.late)
+  #               ~ 3,
+  #               is.na(tert.brood.early) &
+  #               !is.na(tert.feed.mid) &
+  #               is.na(tert.feed.late)
+  #               ~ 3,
+  #               !is.na(tert.brood.early) &
+  #               is.na(tert.feed.mid) &
+  #               is.na(tert.feed.late)
+  #               ~ 3)) 
+  #     
+  #   ## c) Create continuous score of parental care behaviors 
+  #       # sum of behavior tertile/total possible tertile sum
+  #     brood_feed <- brood_feed %>%
+  #       mutate(care.indx.cont.3 = care.sum.3/care.tot.3) %>%
+  #       mutate(care.indx.3 =  as.integer(Hmisc::cut2(care.indx.cont.3, g=3)))
+  #     
+  #           # Hmisc alternative using cut and quantile   
+  #           #    (cut(care.indx.cont.3, 
+  #           #         quantile(care.indx.cont.3, probs=0:3/3,
+  #           #                  na.rm = T), 
+  #           #         include.lowest = T)))
+  #     # don't use ntile, which allows the same value to occur in mult. quantile         
+  #     #as.factor(ntile(care.indx.cont.3, 3))) 
+  # 
+  #   ## d) Re-label the care.indx.3 factor levels
+  #     brood_feed <- brood_feed %>%
+  #       mutate(care.indx.3 =
+  #                case_when(care.indx.3 == 1
+  #                          ~ c('low'),
+  #                          care.indx.3 == 2
+  #                          ~ c('avg'),
+  #                          care.indx.3 == 3
+  #                          ~ c('hi')))
+  # 
+  #   ## e) Re-code *nominal* factor (with ordered levels)
+  #    # Set levels (ordering) of care.indx.3 variable 
+  #     brood_feed <- transform(brood_feed, 
+  #                             care.indx.3 = factor(care.indx.3,
+  #                                                levels = c("low", "avg", 
+  #                                                           "hi")))
+  #     
+  #     class(brood_feed$care.indx.3)
+    #   
+    # ## f) Select columns 
+    #   brood_feed <- brood_feed %>%
+    #     select(c(nest.id, care.indx.3))
+    #     
+    # ## f) Left join brood_feed to care_blups 
+    #   brood_feed <- care_blups %>%
+    #     left_join(brood_feed, by = c('nest.id' = 'nest.id'),
+    #               copy = F)
+    #   
       
       
 ###############################################################################
@@ -900,7 +902,7 @@
       
     ## c) Left join brood to late_nestling_parent_care data frame
       late_nestling_parent_care <- late_nestling_parent_care %>%
-        left_join(brood_feed, by = c('nest.id' = 'nest.id'),
+        left_join(care_blups, by = c('nest.id' = 'nest.id'),
                   copy = F)
       
         
@@ -934,7 +936,7 @@
       
   ### 8.1 Bivariate descriptive stats 
       
-    ## a) Blood glucose by feeding BLUP indx (1 = lowest tertile)
+    ## a) Blood glucose by feeding BLUP indx 
       bivar_gluc_feed_indx <- late_nestling_parent_care %>%
         group_by(feed.indx) %>%
         summarise (n.base.gluc = sum(!is.na(base.gluc)),
@@ -960,88 +962,123 @@
                    max.gluc.diff = round(max(gluc.diff,
                                              na.rm = T), 2))
       
-    ## b) Blood glucose brooding BLUP indx (1 = lowest tertile)
-      bivar_gluc_brood_indx <- late_nestling_parent_care %>%
-        group_by(brood.indx) %>%
-        summarise (n.base.gluc = sum(!is.na(base.gluc)),
-                   avg.base.gluc = round (mean(base.gluc, 
-                                               na.rm = T),2),
-                   stdev.base.gluc = round (sd(base.gluc, 
-                                               na.rm = T), 2),
-                   med.base.gluc = round(median(base.gluc,
-                                                na.rm = T), 2),
-                   min.base.gluc = round(min(base.gluc,
-                                             na.rm = T), 2),
-                   max.base.gluc = round(max(base.gluc,
-                                             na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
-                                               na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
-                                               na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
-                                                na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
-                                             na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                             na.rm = T), 2))
-      
-    ## c) Blood glucose by feeding + brooding BLUP indx, 'care_indx'
-      # (1 = lowest tertile)
-      bivar_care_indx <- late_nestling_parent_care %>%
-        group_by(care.indx) %>%
-        summarise (n.base.gluc = sum(!is.na(base.gluc)),
-                   avg.base.gluc = round (mean(base.gluc, 
-                                               na.rm = T),2),
-                   stdev.base.gluc = round (sd(base.gluc, 
-                                               na.rm = T), 2),
-                   med.base.gluc = round(median(base.gluc,
-                                                na.rm = T), 2),
-                   min.base.gluc = round(min(base.gluc,
-                                             na.rm = T), 2),
-                   max.base.gluc = round(max(base.gluc,
-                                             na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
-                                               na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
-                                               na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
-                                                na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
-                                             na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                             na.rm = T), 2))
-      
-      
-    ## d)  Blood glucose by feeding + brooding indx 
-      # (early brood + mid feed + late feed), 'care_indx.3'
-      # (1 = lowest tertile)
-      bivar_gluc_care_indx3 <- late_nestling_parent_care %>%
-        group_by(care.indx.3) %>%
-        summarise (n.base.gluc = sum(!is.na(base.gluc)),
-                   avg.base.gluc = round (mean(base.gluc, 
-                                          na.rm = T),2),
-                   stdev.base.gluc = round (sd(base.gluc, 
-                                          na.rm = T), 2),
-                   med.base.gluc = round(median(base.gluc,
-                                           na.rm = T), 2),
-                   min.base.gluc = round(min(base.gluc,
-                                        na.rm = T), 2),
-                   max.base.gluc = round(max(base.gluc,
-                                        na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
+    ## b) Size/growth by feeding BLUP indx 
+      bivar_size_feed_indx <- late_nestling_parent_care %>%
+        group_by(feed.indx) %>%
+        summarise (n.mid.size = sum(!is.na(mid.rt.wing.length)),
+                   avg.mid.size = round (mean(mid.rt.wing.length, 
                                               na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
+                   stdev.mid.size = round (sd(mid.rt.wing.length, 
                                               na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
+                   med.mid.size = round(median(mid.rt.wing.length,
                                                na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
+                   min.mid.size = round(min(mid.rt.wing.length,
                                             na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                            na.rm = T), 2))
+                   max.mid.size = round(max(mid.rt.wing.length,
+                                            na.rm = T), 2),
+                   n.late.size = sum(!is.na(late.rt.wing.length)),
+                   avg.late.size = round (mean(late.rt.wing.length, 
+                                               na.rm = T),2),
+                   stdev.late.size = round (sd(late.rt.wing.length, 
+                                               na.rm = T), 2),
+                   med.late.size = round(median(late.rt.wing.length,
+                                                na.rm = T), 2),
+                   min.late.size = round(min(late.rt.wing.length,
+                                             na.rm = T), 2),
+                   max.late.size = round(max(late.rt.wing.length,
+                                             na.rm = T), 2),
+                   n.grow = sum(!is.na(rt.wing.diff)),
+                   avg.grow = round (mean(rt.wing.diff, 
+                                               na.rm = T),2),
+                   stdev.grow = round (sd(rt.wing.diff, 
+                                               na.rm = T), 2),
+                   med.grow = round(median(rt.wing.diff,
+                                                na.rm = T), 2),
+                   min.grow = round(min(rt.wing.diff,
+                                             na.rm = T), 2),
+                   max.grow = round(max(rt.wing.diff,
+                                             na.rm = T), 2))
       
+    # ## c) Blood glucose brooding BLUP indx 
+    #   bivar_gluc_brood_indx <- late_nestling_parent_care %>%
+    #     group_by(brood.indx) %>%
+    #     summarise (n.base.gluc = sum(!is.na(base.gluc)),
+    #                avg.base.gluc = round (mean(base.gluc, 
+    #                                            na.rm = T),2),
+    #                stdev.base.gluc = round (sd(base.gluc, 
+    #                                            na.rm = T), 2),
+    #                med.base.gluc = round(median(base.gluc,
+    #                                             na.rm = T), 2),
+    #                min.base.gluc = round(min(base.gluc,
+    #                                          na.rm = T), 2),
+    #                max.base.gluc = round(max(base.gluc,
+    #                                          na.rm = T), 2),
+    #                n.gluc.diff = sum(!is.na(gluc.diff)),
+    #                avg.gluc.diff = round (mean(gluc.diff, 
+    #                                            na.rm = T),2),
+    #                stdev.gluc.diff = round (sd(gluc.diff, 
+    #                                            na.rm = T), 2),
+    #                med.gluc.diff = round(median(gluc.diff,
+    #                                             na.rm = T), 2),
+    #                min.gluc.diff = round(min(gluc.diff,
+    #                                          na.rm = T), 2),
+    #                max.gluc.diff = round(max(gluc.diff,
+    #                                          na.rm = T), 2))
+    #   
+    # ## c) Blood glucose by feeding + brooding BLUP indx, 'care_indx'
+    #   bivar_care_indx <- late_nestling_parent_care %>%
+    #     group_by(care.indx) %>%
+    #     summarise (n.base.gluc = sum(!is.na(base.gluc)),
+    #                avg.base.gluc = round (mean(base.gluc, 
+    #                                            na.rm = T),2),
+    #                stdev.base.gluc = round (sd(base.gluc, 
+    #                                            na.rm = T), 2),
+    #                med.base.gluc = round(median(base.gluc,
+    #                                             na.rm = T), 2),
+    #                min.base.gluc = round(min(base.gluc,
+    #                                          na.rm = T), 2),
+    #                max.base.gluc = round(max(base.gluc,
+    #                                          na.rm = T), 2),
+    #                n.gluc.diff = sum(!is.na(gluc.diff)),
+    #                avg.gluc.diff = round (mean(gluc.diff, 
+    #                                            na.rm = T),2),
+    #                stdev.gluc.diff = round (sd(gluc.diff, 
+    #                                            na.rm = T), 2),
+    #                med.gluc.diff = round(median(gluc.diff,
+    #                                             na.rm = T), 2),
+    #                min.gluc.diff = round(min(gluc.diff,
+    #                                          na.rm = T), 2),
+    #                max.gluc.diff = round(max(gluc.diff,
+    #                                          na.rm = T), 2))
+    #   
+    #   
+    # ## d)  Blood glucose by feeding + brooding indx 
+    #   # (early brood + mid feed + late feed), 'care_indx.3'
+    #   bivar_gluc_care_indx3 <- late_nestling_parent_care %>%
+    #     group_by(care.indx.3) %>%
+    #     summarise (n.base.gluc = sum(!is.na(base.gluc)),
+    #                avg.base.gluc = round (mean(base.gluc, 
+    #                                       na.rm = T),2),
+    #                stdev.base.gluc = round (sd(base.gluc, 
+    #                                       na.rm = T), 2),
+    #                med.base.gluc = round(median(base.gluc,
+    #                                        na.rm = T), 2),
+    #                min.base.gluc = round(min(base.gluc,
+    #                                     na.rm = T), 2),
+    #                max.base.gluc = round(max(base.gluc,
+    #                                     na.rm = T), 2),
+    #                n.gluc.diff = sum(!is.na(gluc.diff)),
+    #                avg.gluc.diff = round (mean(gluc.diff, 
+    #                                           na.rm = T),2),
+    #                stdev.gluc.diff = round (sd(gluc.diff, 
+    #                                           na.rm = T), 2),
+    #                med.gluc.diff = round(median(gluc.diff,
+    #                                            na.rm = T), 2),
+    #                min.gluc.diff = round(min(gluc.diff,
+    #                                         na.rm = T), 2),
+    #                max.gluc.diff = round(max(gluc.diff,
+    #                                         na.rm = T), 2))
+    #   
 
 
 ###############################################################################
