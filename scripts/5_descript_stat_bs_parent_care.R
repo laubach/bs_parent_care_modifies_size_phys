@@ -907,7 +907,7 @@
       
         
                                                                  
-  ### 7.2 Create growth variable    
+  ### 7.2 Create growth variable and update late_nestling_parent_care df   
     ## a) Calculate difference between day 8 minus day 12 size based the 
       # rt. wing length
       diff_size <- nestling_parent_care %>%
@@ -928,6 +928,40 @@
         left_join(diff_size, by = c('nestling.band' = 'nestling.band'), 
                   copy = F)
       
+    ## d) Pivot glucose long to wide 
+      base_gluc <- nestling_parent_care %>%
+        select(nestling.band, sample.state, base.gluc) %>%
+        filter(sample.state != 'early') %>%
+        filter(!is.na((nestling.band))) %>%
+        pivot_wider(id_cols = nestling.band, names_from = sample.state, 
+                    values_from = base.gluc)
+        
+    ## e) Rename variables
+      base_gluc <- base_gluc %>%
+        rename(mid.base.gluc = mid,
+               late.base.gluc = late)
+      
+    ## f) Pivot glucose long to wide 
+      stress_gluc <- nestling_parent_care %>%
+        select(nestling.band, sample.state, stress.gluc) %>%
+        filter(sample.state != 'early') %>%
+        filter(!is.na((nestling.band))) %>%
+        pivot_wider(id_cols = nestling.band, names_from = sample.state, 
+                    values_from = stress.gluc)
+      
+    ## g) Rename variables
+      stress_gluc <- stress_gluc %>%
+        rename(mid.stress.gluc = mid,
+               late.stress.gluc = late)
+      
+    ## h) Left join base_gluc to late_nestling_parent_care
+      late_nestling_parent_care <- late_nestling_parent_care %>%
+        left_join(base_gluc, by = c('nestling.band' = 'nestling.band'), 
+                  copy = F)
+      
+      late_nestling_parent_care <- late_nestling_parent_care %>%
+        left_join(stress_gluc, by = c('nestling.band' = 'nestling.band'), 
+                  copy = F)
       
       
 ###############################################################################
@@ -939,28 +973,52 @@
     ## a) Blood glucose by feeding BLUP indx 
       bivar_gluc_feed_indx <- late_nestling_parent_care %>%
         group_by(feed.indx) %>%
-        summarise (n.base.gluc = sum(!is.na(base.gluc)),
-                   avg.base.gluc = round (mean(base.gluc, 
+        summarise (n.mid.base.gluc = sum(!is.na(mid.base.gluc)),
+                   avg.mid.base.gluc = round (mean(mid.base.gluc, 
                                                na.rm = T),2),
-                   stdev.base.gluc = round (sd(base.gluc, 
+                   stdev.mid.base.gluc = round (sd(mid.base.gluc, 
                                                na.rm = T), 2),
-                   med.base.gluc = round(median(base.gluc,
+                   med.mid.base.gluc = round(median(mid.base.gluc,
                                                 na.rm = T), 2),
-                   min.base.gluc = round(min(base.gluc,
+                   min.mid.base.gluc = round(min(mid.base.gluc,
                                              na.rm = T), 2),
-                   max.base.gluc = round(max(base.gluc,
+                   max.mid.base.gluc = round(max(mid.base.gluc,
                                              na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
+                   n.mid.stress.gluc = sum(!is.na(mid.stress.gluc)),
+                   avg.mid.stress.gluc = round (mean(mid.stress.gluc, 
                                                na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
+                   stdev.mid.stress.gluc = round (sd(mid.stress.gluc, 
                                                na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
+                   med.mid.stress.gluc = round(median(mid.stress.gluc,
                                                 na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
+                   min.mid.stress.gluc = round(min(mid.stress.gluc,
                                              na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                             na.rm = T), 2))
+                   max.mid.stress.gluc = round(max(mid.stress.gluc,
+                                             na.rm = T), 2),
+                   
+                   n.late.base.gluc = sum(!is.na(late.base.gluc)),
+                   avg.late.base.gluc = round (mean(late.base.gluc, 
+                                                   na.rm = T),2),
+                   stdev.late.base.gluc = round (sd(late.base.gluc, 
+                                                   na.rm = T), 2),
+                   med.late.base.gluc = round(median(late.base.gluc,
+                                                    na.rm = T), 2),
+                   min.late.base.gluc = round(min(late.base.gluc,
+                                                 na.rm = T), 2),
+                   max.late.base.gluc = round(max(late.base.gluc,
+                                                 na.rm = T), 2),
+                   n.late.stress.gluc = sum(!is.na(late.stress.gluc)),
+                   avg.late.stress.gluc = round (mean(late.stress.gluc, 
+                                                     na.rm = T),2),
+                   stdev.late.stress.gluc = round (sd(late.stress.gluc, 
+                                                     na.rm = T), 2),
+                   med.late.stress.gluc = round(median(late.stress.gluc,
+                                                      na.rm = T), 2),
+                   min.late.stress.gluc = round(min(late.stress.gluc,
+                                                   na.rm = T), 2),
+                   max.late.stress.gluc = round(max(late.stress.gluc,
+                                                   na.rm = T), 2))
+      
       
     ## b) Size/growth by feeding BLUP indx 
       bivar_size_feed_indx <- late_nestling_parent_care %>%
