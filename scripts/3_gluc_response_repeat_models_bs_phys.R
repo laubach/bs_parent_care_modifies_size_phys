@@ -161,7 +161,10 @@
       rm(nestling_parent_care_sens_l_1, nestling_parent_care_sens_l_2,
            nestling_parent_care_sens_l_3)
       
-          
+      nestling_parent_care_l$glucose.sample <- as.factor(nestling_parent_care_l$glucose.sample)
+      levels(nestling_parent_care_l$glucose.sample)    
+      
+      
   ### 3.2 Mid-development stress response models
     ## a) Mid-development unadjusted baseline to stress state glucose levels 
       mid.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample +
@@ -229,9 +232,9 @@
                                           # scale(nestling.number) + 
                                       # nestling ID nested in nest
                                       (1|nest.id) + (1|nestling.band:nest.id), 
-                                      # data = subset(nestling_parent_care_l,
+                                       data = subset(nestling_parent_care_l,
                                     # sensitivity analysis - 4min max baseline
-                                    data = subset(nestling_parent_care_sens_l,
+                                    # data = subset(nestling_parent_care_sens_l,
                                              sample.state == 'late' &
                                              !is.na(x = glucose) &
                                              !is.na(x = glucose.sample) &
