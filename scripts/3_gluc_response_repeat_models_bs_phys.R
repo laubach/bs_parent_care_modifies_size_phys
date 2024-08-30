@@ -447,14 +447,14 @@
                                   conf.int = T) 
       
     ## b) Label the estimates in data frame
-      mid.dev.gluc.respon$model <- c("Mid-development")
+      mid.dev.gluc.respon$model <- c("mid-development")
       
     ## c) Use broom to extract estimates and tidy the data frame
       late.dev.gluc.respon <- tidy(late.base.stress.gluc.mmean.adj, 
                                   conf.int = T) 
       
     ## d) Label the estimates in data frame
-      late.dev.gluc.respon$model <- c("Late development")
+      late.dev.gluc.respon$model <- c("late development")
       
      
     ## e) Combine regression estimates into a tidy table
@@ -482,8 +482,8 @@
         # Set levels (ordering) of 'model' variable 
         gluc.respon.by.dev <- transform(gluc.respon.by.dev, 
                                              model = factor(model,
-                                                levels = c("Mid-development", 
-                                                "Late development")))
+                                                levels = c("mid-development", 
+                                                "late development")))
 
       
     ## h) Graph results of baseline vs stressed state glucose at mid and late
@@ -493,22 +493,22 @@
                                        color = model, group = model)) +
         # geom_hline(yintercept = 1, color = 'red',
         #            linetype = 2) + # line at null behind coefs
-        geom_point(size = 6, 
+        geom_point(size = 8, 
                    position=position_dodge(width = -0.5)) +
         geom_errorbar(aes(ymin=(estimate - std.error), 
-                          ymax=(estimate + std.error)), width=.1,
+                          ymax=(estimate + std.error)), width=.1, size = 2,
                       position=position_dodge(-0.5)) +
-        geom_line(position=position_dodge(-0.5)) +
+        geom_line(position=position_dodge(-0.5), size = 2) +
         scale_color_manual(values=c('palegreen4', 'steelblue4')) +
         # scale_fill_manual(values=c('Mid-development' = 'navy', 
         #                             'Late Development' = 'red')) +
         #coord_flip() + # flip x and y axes
         labs(title = 'Nestling blood glucose at baseline and in response to 
-        handling stress at mid- and late development') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
+handling stress at mid- and late development') +
+        theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         #theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
@@ -519,28 +519,29 @@
                                       max(gluc.respon.by.dev$estimate + 10), 
                                               by = 10),0)) +
         # add major axes
-        #theme(axis.line = element_line(colour = 'lightgrey', 
-        #                               size = 1, linetype = 'solid')) + 
+        theme(axis.line = element_line(colour = 'black',
+                                      size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
               legend.text=element_text(size=14),
               legend.position = c(0.4, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("(Sample collection time)"))) +
+        xlab(expression(italic("(sample collection time)"))) +
         ylab(expression
-             (atop(bold("Marginal mean and SE blood glucose (mg/dl)")))) 
-        +
-        geom_point(data = nestling_parent_care_l, aes(x=glucose.sample, y = glucose)) +
-          scale_fill_manual(values=c('Mid-development' = 'palegreen4',
-                                      'Late Development' = 'steelblue4')) 
+             (atop(bold("marginal mean and SE blood glucose (mg/dl)")))) 
+       
+          
+          #  geom_point(data = nestling_parent_care_l, aes(x=glucose.sample, y = glucose)) +
+          # scale_fill_manual(values=c('mid-development' = 'palegreen4',
+          #                             'late Development' = 'steelblue4')) 
 
       
       print(gluc.respon.by.dev.plot)
@@ -550,8 +551,8 @@
       ggsave('gluc.respon.by.dev.plot.pdf', plot = gluc.respon.by.dev.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 12.5,
-             height = 9,
+             scale = 1, width = 8.5,
+             height = 8,
              units = c('in'), dpi = 300, limitsize = TRUE)
       
       

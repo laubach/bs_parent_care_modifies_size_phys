@@ -977,7 +977,7 @@
                                !is.na(x = gluc.diff) &
                                !is.na(x = rt.wing.diff) &
                                !is.na(x = nestling.band))) +
-        #xlim(10,35) +
+        xlim(10,35) +
         geom_point(aes(x = rt.wing.diff, y = gluc.diff, fill = feed.indx),
                    color = 'black', shape = 21, # black outline around points
                    size = 3) +
@@ -1004,7 +1004,6 @@
         # add major axes
         theme(axis.line = element_line(colour = 'black',
                                        size = 0.5, linetype = 'solid')) +
-        
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
                                          size=20, angle=0,
@@ -1071,7 +1070,7 @@
         filter(term == 'scale(rt.wing.length)')
       
     ## b) Low parental care model: Label the estimates in data frame
-      base.gluc.wing.low.care.est$model <- c("Low parental care")
+      base.gluc.wing.low.care.est$model <- c("low parental care")
       
     ## c) Avg parental care model: extract estimates and tidy the data frame 
       base.gluc.wing.avg.care.est <- tidy(base.gluc.wing.avg.care.lmm, 
@@ -1081,7 +1080,7 @@
         filter(term == 'scale(rt.wing.length)')
       
     ## d) Avg parental care model: Label the estimates in data frame
-      base.gluc.wing.avg.care.est$model <- c("Avg. parental care")
+      base.gluc.wing.avg.care.est$model <- c("avg. parental care")
       
     # ## e) High parental care model: extract estimates and tidy the data frame 
     #   base.gluc.wing.hi.care.est <- tidy(base.gluc.wing.hi.care.lmm, 
@@ -1104,8 +1103,8 @@
       base.gluc.by.wing.by.care <- 
         transform(base.gluc.by.wing.by.care, 
                   model = factor(model,
-                                          levels = c('Low parental care',
-                                                     'Avg. parental care'
+                                          levels = c('low parental care',
+                                                     'avg. parental care'
                                                      #,'High parental care'
                                                      )))  
       
@@ -1115,44 +1114,44 @@
         ggplot(base.gluc.by.wing.by.care, aes(x = model, y = estimate, 
                                        color = model)) +
         geom_hline(yintercept = 0, color = 'red',
-                   linetype = 2) + # line at null behind coefs
-        geom_point(size = 6) +
+                   linetype = 2, size = 2) + # line at null behind coefs
+        geom_point(size = 8) +
         geom_errorbar(aes(ymin=(conf.low), 
-                          ymax=(conf.high)), width=.1) +
+                          ymax=(conf.high)), width = .1, size = 2) +
         scale_color_manual(values=c('steelblue4', 'steelblue1'
                                    # , 'firebrick4'
                                     )) +
         #coord_flip() + # flip x and y axes
-        labs(title = 'The association beween late development size and late development baseline blood 
-glucose (mg/dl) from models stratified by amount of parental care') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
+        labs(title = 'The association beween late development size and late development baseline 
+blood glucose (mg/dl) from models stratified by amount of parental care') +
+        theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # add major axes
-        #theme(axis.line = element_line(colour = 'lightgrey', 
-        #                               size = 1, linetype = 'solid')) + 
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
               legend.text=element_text(size=14),
               legend.position = 'none', #c(0.91, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("Models stratified by parental care"))) +
+        xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
-             (atop(bold("Beta estimate and 95% CI"),
-    paste(italic("Baseline glucose (mg/dl) per 1 SD wing length"))))) 
+             (atop(bold("beta estimate and 95% CI"),
+    paste(italic("baseline glucose (mg/dl) per 1 SD wing length"))))) 
       
       
     print(base.gluc.by.wing.by.care.plot)
@@ -1163,8 +1162,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
              plot = base.gluc.by.wing.by.care.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 12.5,
-             height = 9,
+             scale = 1, width = 8.5,
+             height = 8,
              units = c('in'), dpi = 300, limitsize = TRUE)
       
       
@@ -1178,7 +1177,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.diff)')
       
     ## b) Low parental care model: Label the estimates in data frame
-      base.gluc.grow.low.care.est$model <- c("Low parental care")
+      base.gluc.grow.low.care.est$model <- c("low parental care")
       
       
     ## c) Avg parental care model: extract estimates and tidy the data frame 
@@ -1189,7 +1188,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.diff)')
       
     ## d) Avg parental care model: Label the estimates in data frame
-      base.gluc.grow.avg.care.est$model <- c("Avg. parental care")
+      base.gluc.grow.avg.care.est$model <- c("avg. parental care")
       
     # ## e) High parental care model: extract estimates and tidy the data frame 
     #   base.gluc.grow.hi.care.est <- tidy(base.gluc.grow.hi.care.lmm, 
@@ -1213,8 +1212,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
       base.gluc.by.grow.by.care <- 
         transform(base.gluc.by.grow.by.care, 
                   model = factor(model,
-                                 levels = c('Low parental care',
-                                            'Avg. parental care'
+                                 levels = c('low parental care',
+                                            'avg. parental care'
                                             #, 'High parental care'
                                             )))  
       
@@ -1224,44 +1223,44 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         ggplot(base.gluc.by.grow.by.care, aes(x = model, y = estimate, 
                                               color = model)) +
         geom_hline(yintercept = 0, color = 'red',
-                   linetype = 2) + # line at null behind coefs
-        geom_point(size = 6) +
+                   linetype = 2, size = 2) + # line at null behind coefs
+        geom_point(size = 8) +
         geom_errorbar(aes(ymin=(conf.low), 
-                          ymax=(conf.high)), width=.1) +
+                          ymax=(conf.high)), width = .1, size = 2) +
         scale_color_manual(values=c('steelblue4', 'steelblue1'
                                     #, 'firebrick4'
                                     )) +
         #coord_flip() + # flip x and y axes
-        labs(title = 'The association between growth and late development baseline blood 
-glucose (mg/dl) from models stratified by amount of parental care') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
+        labs(title = 'The association between growth and late development baseline  
+blood glucose (mg/dl) from models stratified by amount of parental care') +
+        theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # add major axes
-        #theme(axis.line = element_line(colour = 'lightgrey', 
-        #                               size = 1, linetype = 'solid')) + 
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
               legend.text=element_text(size=14),
               legend.position = 'none', #c(0.91, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("Models stratified by parental care"))) +
+        xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
-             (atop(bold("Beta estimate and 95% CI"),
-                   paste(italic("Baseline glucose (mg/dl) per 1 SD growth"))))) 
+             (atop(bold("beta estimate and 95% CI"),
+                   paste(italic("baseline glucose (mg/dl) per 1 SD growth"))))) 
       
       
       print(base.gluc.by.grow.by.care.plot)
@@ -1272,8 +1271,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
              plot = base.gluc.by.grow.by.care.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 12.5,
-             height = 9,
+             scale = 1, width = 8.5,
+             height = 8,
              units = c('in'), dpi = 300, limitsize = TRUE)
       
       
@@ -1287,7 +1286,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.length)')
       
     ## b) Low parental care model: Label the estimates in data frame
-      gluc.diff.wing.low.care.est$model <- c("Low parental care")
+      gluc.diff.wing.low.care.est$model <- c("low parental care")
       
       
     ## c) Avg parental care model: extract estimates and tidy the data frame 
@@ -1298,7 +1297,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.length)')
       
     ## d) Avg parental care model: Label the estimates in data frame
-      gluc.diff.wing.avg.care.est$model <- c("Avg. parental care")
+      gluc.diff.wing.avg.care.est$model <- c("avg. parental care")
       
       # ## e) High parental care model: extract estimates and tidy the data frame 
       #   gluc.diff.wing.hi.care.est <- tidy(gluc.diff.wing.hi.care.lmm, 
@@ -1321,8 +1320,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
       gluc.diff.by.wing.by.care <- 
         transform(gluc.diff.by.wing.by.care, 
                   model = factor(model,
-                                 levels = c('Low parental care',
-                                            'Avg. parental care'
+                                 levels = c('low parental care',
+                                            'avg. parental care'
                                             #,'High parental care'
                                  )))  
       
@@ -1332,44 +1331,44 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         ggplot(gluc.diff.by.wing.by.care, aes(x = model, y = estimate, 
                                               color = model)) +
         geom_hline(yintercept = 0, color = 'red',
-                   linetype = 2) + # line at null behind coefs
-        geom_point(size = 6) +
+                   linetype = 2, size = 2) + # line at null behind coefs
+        geom_point(size = 8) +
         geom_errorbar(aes(ymin=(conf.low), 
-                          ymax=(conf.high)), width=.1) +
+                          ymax=(conf.high)), width = .1, size = 2) +
         scale_color_manual(values=c('steelblue4', 'steelblue1'
                                     #, 'firebrick4'
         )) +
         #coord_flip() + # flip x and y axes
-        labs(title = 'The association between late development size and late development glucose response 
-(stress - baseline) from models stratified by amount of parental care') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
+        labs(title = 'The association between late development size and late development glucose 
+response (stress - baseline) from models stratified by amount of parental care') +
+        theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # add major axes
-        #theme(axis.line = element_line(colour = 'lightgrey', 
-        #                               size = 1, linetype = 'solid')) + 
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
               legend.text=element_text(size=14),
               legend.position = 'none', #c(0.91, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("Models stratified by parental care"))) +
+        xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
-             (atop(bold("Beta estimate and 95% CI"),
-                   paste(italic("Glucose response (mg/dl) per 1 SD wing length"))))) 
+             (atop(bold("beta estimate and 95% CI"),
+                   paste(italic("glucose response (mg/dl) per 1 SD wing length"))))) 
       
       
       print(gluc.diff.by.wing.by.care.plot)
@@ -1380,8 +1379,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
              plot = gluc.diff.by.wing.by.care.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 12.5,
-             height = 9,
+             scale = 1, width = 8.5,
+             height = 8,
              units = c('in'), dpi = 300, limitsize = TRUE)      
       
       
@@ -1395,7 +1394,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.diff)')
       
     ## b) Low parental care model: Label the estimates in data frame
-      gluc.diff.grow.low.care.est$model <- c("Low parental care")
+      gluc.diff.grow.low.care.est$model <- c("low parental care")
       
       
     ## c) Avg parental care model: extract estimates and tidy the data frame 
@@ -1406,7 +1405,7 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         filter(term == 'scale(rt.wing.diff)')
       
     ## d) Avg parental care model: Label the estimates in data frame
-      gluc.diff.grow.avg.care.est$model <- c("Avg. parental care")
+      gluc.diff.grow.avg.care.est$model <- c("avg. parental care")
       
     # ## e) High parental care model: extract estimates and tidy the data frame 
     #   gluc.diff.grow.hi.care.est <- tidy(gluc.diff.grow.hi.care.lmm, 
@@ -1431,8 +1430,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
       gluc.diff.by.grow.by.care <- 
         transform(gluc.diff.by.grow.by.care, 
                   model = factor(model,
-                                 levels = c('Low parental care',
-                                            'Avg. parental care'
+                                 levels = c('low parental care',
+                                            'avg. parental care'
                                             #, 'High parental care'
                                             )))  
       
@@ -1442,44 +1441,44 @@ glucose (mg/dl) from models stratified by amount of parental care') +
         ggplot(gluc.diff.by.grow.by.care, aes(x = model, y = estimate, 
                                               color = model)) +
         geom_hline(yintercept = 0, color = 'red',
-                   linetype = 2) + # line at null behind coefs
-        geom_point(size = 6) +
+                   linetype = 2, size = 2) + # line at null behind coefs
+        geom_point(size = 8) +
         geom_errorbar(aes(ymin=(conf.low), 
-                          ymax=(conf.high)), width=.1) +
+                          ymax=(conf.high)), width = .1, size = 2) +
         scale_color_manual(values=c('steelblue4', 'steelblue1'
                                     #, 'firebrick4'
         )) +
         #coord_flip() + # flip x and y axes
-        labs(title = 'The association between growth on late development glucose response 
+        labs(title = 'The association between growth on late development glucose 
 (stress - baseline) from models stratified by amount of parental care') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
+        theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # add major axes
-        #theme(axis.line = element_line(colour = 'lightgrey', 
-        #                               size = 1, linetype = 'solid')) + 
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
               legend.text=element_text(size=14),
               legend.position = 'none', #c(0.91, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("Models stratified by parental care"))) +
+        xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
-             (atop(bold("Beta estimate and 95% CI"),
-                   paste(italic("Glucose response (mg/dl) per 1 SD growth"))))) 
+             (atop(bold("beta estimate and 95% CI"),
+                   paste(italic("glucose response (mg/dl) per 1 SD growth"))))) 
       
       
       print(gluc.diff.by.grow.by.care.plot)
@@ -1490,8 +1489,8 @@ glucose (mg/dl) from models stratified by amount of parental care') +
              plot = gluc.diff.by.grow.by.care.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 12.5,
-             height = 9,
+             scale = 1, width = 8.5,
+             height = 8,
              units = c('in'), dpi = 300, limitsize = TRUE)
 
   

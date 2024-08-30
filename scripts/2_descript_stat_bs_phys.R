@@ -276,23 +276,26 @@
                           labels = c('baseline', 'negative', 
                                      'positive', 'stressed')) +
         labs(title = 'Scatter plot of serially sampled glucose',
-             x ='Sampling time (s)', 
-             y ='Glucose (mg/dl)') +
+             x ='sampling time (s)', 
+             y ='glucose (mg/dl)') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(size=20, angle = 60, 
+        theme(axis.text.x = element_text(size=22, angle = 60, 
                                          vjust = 1, hjust=1)) +
+        # add major axes
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 0)),
               legend.title=element_blank(), #element_text(size=10)
@@ -306,8 +309,8 @@
     ## d) Save plot
       ggsave('mid_gluc_samp_scatter.pdf', plot = mid_gluc_samp_scatter, 
              device = NULL, 
-             path = here('output/'), scale = 1, width = 10.5, 
-             height = 7.5, 
+             path = here('output/'), scale = 1, width = 8.5, 
+             height = 8, 
              units = c('in'), dpi = 300, limitsize = TRUE) 
       
     ## e) Scatterplot of baseline and stressed glucose measures at late develop. 
@@ -321,22 +324,25 @@
                            labels = c('baseline', 'negative', 
                                       'positive', 'stressed')) +
         labs(title = 'Scatter plot of serially sampled glucose',
-             x ='Sampling time (s)', 
-             y ='Glucose (mg/dl)') +
+             x ='sampling time (s)', 
+             y ='glucose (mg/dl)') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
+        theme(text = element_text(size=22, face = 'bold')) +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+        # add major axes
+        theme(axis.line = element_line(colour = 'black',
+                                       size = 0.5, linetype = 'solid')) +
         # remove background color
         theme(panel.background = element_rect(fill = 'white')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
+                                         size=22, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
+                                         size=22, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 0)),
               legend.title=element_blank(), #element_text(size=10)
@@ -350,8 +356,8 @@
     ## g) Save plot
       ggsave('late_gluc_samp_scatter.pdf', plot = late_gluc_samp_scatter, 
              device = NULL, 
-             path = here('output/'), scale = 1, width = 10.5, 
-             height = 7.5, 
+             path = here('output/'), scale = 1, width = 8.5, 
+             height = 8, 
              units = c('in'), dpi = 300, limitsize = TRUE) 
       
      
