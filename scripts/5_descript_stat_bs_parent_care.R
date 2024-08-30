@@ -260,15 +260,15 @@
         #                                    na.rm = T), 2),
                    n.tot.feed = sum(!is.na(total.feeding.visits.rate)),
                    avg.tot.feed = round (mean(total.feeding.visits.rate, 
-                                                na.rm = T),2),
+                                                na.rm = T),3),
                    stdev.tot.feed = round (sd(total.feeding.visits.rate, 
-                                                na.rm = T), 2),
-                   med.tot.feed = round(median(total.feeding.visits.rate,
-                                                 na.rm = T), 2),
-                   min.tot.feed = round(min(total.feeding.visits.rate,
-                                              na.rm = T), 2),
-                   max.tot.feed = round(max(total.feeding.visits.rate,
-                                              na.rm = T), 2),
+                                                na.rm = T), 3),
+                   med.tot.feed = round(median(60*total.feeding.visits.rate,
+                                                 na.rm = T), 3),
+                   min.tot.feed = round(min(60*total.feeding.visits.rate,
+                                              na.rm = T), 3),
+                   max.tot.feed = round(max(60*total.feeding.visits.rate,
+                                              na.rm = T), 3),
                    # n.tot.an.dur = sum(!is.na(total.an.duration)),
                    # avg.tot.an.dur = round (mean(total.an.duration, 
                    #                            na.rm = T),2),
@@ -532,17 +532,17 @@
       intervals(feed.by.brood.sz.lm)    # 95% CIs
       #plot(feed.by.brood.sz.lm)       # check residuals
       
-    ## d) Association between brood size and feeding rate
-      feed.by.brood.sz.lm <- lme(total.feeding.visits.rate ~ obs.med.temp, 
+    ## d) Association between median temp and feeding rate
+      feed.by.med.temp.lm <- lme(total.feeding.visits.rate ~ obs.med.temp, 
                                  random = ~1|nest.id,
                                  data = subset(parent_care,
                                       # obs.state != 'early' &         
                                         !is.na(x = obs.med.temp) &
                                         !is.na(x = total.feeding.visits.rate)))  
       
-      summary(feed.by.brood.sz.lm)    # model summary 
-      intervals(feed.by.brood.sz.lm)    # 95% CIs
-      #plot(feed.by.brood.sz.lm)       # check residuals
+      summary(feed.by.med.temp.lm)    # model summary 
+      intervals(feed.by.med.temp.lm)    # 95% CIs
+      #plot(feed.by.med.temp.lm)       # check residuals
       
     ## e) Association between disturbance time and feeding rate: if removing
       # nestlings from nests impacts parental behavior, then predict that

@@ -46,41 +46,44 @@
      
     ## b) Graph Plotting and Visualization Packages
       # load ggplot2 packages
-      library ('ggplot2')
+        library ('ggplot2')
       
-      library('hrbrthemes')
+        library('hrbrthemes')
   
-      library('viridis')
+        library('viridis')
 
       # load gridExtra packages
-      library('gridExtra')
+        library('gridExtra')
       
     ## c) Modeling Packages
       # load lme4 packages
-      library ('lme4')
+        library ('lme4')
       
       # load broom packages
-      library('broom')
-      library('broom.mixed')
+        library('broom')
+        library('broom.mixed')
+      
+      # load performance
+        library('performance')
       
       # load dharma
-      library('DHARMa')
+        library('DHARMa')
       
       # load irrNA (for calculating ICC)
-      library('irrNA')
+        library('irrNA')
       
       # load irrICC (for calculating ICC)
-      library('irrICC')
+        library('irrICC')
       
       # load emmeans packages
-      library ('emmeans')
+        library ('emmeans')
       
       # load pbkrtest and lmertest (emmeans dependency)
-      library('pbkrtest')
-      library('lmerTest')
+        library('pbkrtest')
+        library('lmerTest')
       
       # prevent lmerTest from masking the lme4 function for lmer
-      lmer <- lme4::lmer
+        lmer <- lme4::lmer
         
   ### 1.3 Get Version and Session Info
     R.Version()
@@ -163,6 +166,51 @@
       
       nestling_parent_care_l$glucose.sample <- as.factor(nestling_parent_care_l$glucose.sample)
       levels(nestling_parent_care_l$glucose.sample)    
+      
+      
+  ### 3.2 Glucse stress response by development intx. models     
+      
+    ## a) Late development unadjusted baseline to stress state glucose levels 
+      intx.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample * sample.state  
+                                    # nestling ID nested in nest
+                                    + (1|nest.id) + (1|nestling.band:nest.id), 
+                                    data = subset(nestling_parent_care_l,
+                                                  sample.state != 'early' &
+                                                  !is.na(x = glucose) &
+                                                  !is.na(x = glucose.sample) &
+                                                  !is.na(x = nestling.band)))
+      
+    ## b) Parameter estimates
+      summary(intx.base.stress.gluc.lmm)  # model parameter estimates
+      confint(intx.base.stress.gluc.lmm)  # 95% CIs
+      #plot(intx.base.stress.gluc.lmm) # view fitted vs residuals
+ 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  ################### ADD R-square for all models       
+      r2_nakagawa(intx.base.stress.gluc.lmm)
+                  #, by_group=T)
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
   ### 3.2 Mid-development stress response models
@@ -251,7 +299,22 @@
                                                 'glucose.sample')
       summary(late.base.stress.gluc.mmean.adj)
       
+    
+####*********
+# add interaction model
+      ## a) ICC for baseline blood glucose
+      # base.gluc.icc.lmm <- lmer(glucose ~ 1 +
+      #                             (1|nestling.band), 
+      #                           data = subset(nestling_parent_care_l,
+      #                                         sample.state != 'early' &
+      #                                           glucose.sample == 'base.gluc' &
+      #                                           !is.na(x = nestling.band)))
       
+# add marginal and conditional r squared values to all models
+# change figure 3 - multipanel showing pairwise differences of raw data
+      # and model estimates
+      
+        
       
 ###############################################################################
 ##############              4. Repeatability models              ##############
@@ -474,6 +537,10 @@
         xlab(expression(italic("(Sample collection time)"))) +
         ylab(expression
              (atop(bold("Marginal mean and SE blood glucose (mg/dl)")))) 
+        +
+        geom_point(data = nestling_parent_care_l, aes(x=glucose.sample, y = glucose)) +
+          scale_fill_manual(values=c('Mid-development' = 'palegreen4',
+                                      'Late Development' = 'steelblue4')) 
 
       
       print(gluc.respon.by.dev.plot)
