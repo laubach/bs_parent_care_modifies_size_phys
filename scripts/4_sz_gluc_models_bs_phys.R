@@ -59,6 +59,9 @@
       # load lme4 packages
       library ('lme4')
       
+      # load performance
+      library('performance')
+      
       # load broom packages
       library('broom')
       library('broom.mixed')
@@ -111,6 +114,11 @@
       confint(mid.base.gluc.wing.lmm)    # 95% CIs
       #plot(mid.base.gluc.wing.lmm)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.base.gluc.wing.lmm)
+      #, by_group=T)
+      
+      
     ## b) Adjusted mid-development baseline glucose 
       # by mid-dev. right wing length
       mid.base.gluc.wing.lmm.adj <- lmer(base.gluc ~ scale(rt.wing.length) +
@@ -132,6 +140,11 @@
       confint(mid.base.gluc.wing.lmm.adj)    # 95% CIs
       #plot(mid.base.gluc.wing.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.base.gluc.wing.lmm.adj)
+      #, by_group=T)
+      
+      
   ### 3.2 Mid-development glucose difference (stressed - baseline) 
       # by right wing length models
     ## a) Unadjusted mid-development glucose difference  
@@ -147,6 +160,10 @@
       summary(mid.diff.gluc.wing.lmm)    # model summary 
       confint(mid.diff.gluc.wing.lmm)    # 95% CIs
       #plot(mid.diff.gluc.wing.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.diff.gluc.wing.lmm)
+      #, by_group=T)
       
     ## b) Adjusted mid-development glucose difference 
       # by mid-dev. right wing length
@@ -168,6 +185,10 @@
       summary(mid.diff.gluc.wing.lmm.adj)    # model summary 
       confint(mid.diff.gluc.wing.lmm.adj)    # 95% CIs
       #plot(mid.diff.gluc.wing.lmm.adj)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.diff.gluc.wing.lmm.adj)
+      #, by_group=T)
 
       
   ### 3.5 Mid-development baseline glucose by relative nestling size 
@@ -186,6 +207,10 @@
       summary(mid.base.gluc.size.lmm)    # model summary 
       confint(mid.base.gluc.size.lmm)    # 95% CIs
       #plot(mid.base.gluc.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.base.gluc.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted mid-development baseline glucose 
       # by mid-dev. relative nestling size
@@ -208,6 +233,10 @@
       confint(mid.base.gluc.size.lmm.adj)    # 95% CIs
       #plot(mid.base.gluc.size.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.base.gluc.size.lmm.adj)
+      #, by_group=T)
+      
       
   ### 3.6 Mid-development glucose difference (stressed - baseline) 
       # by relative nestling size
@@ -226,6 +255,10 @@
       summary(mid.diff.gluc.size.lmm)    # model summary 
       confint(mid.diff.gluc.size.lmm)    # 95% CIs
       #plot(mid.diff.gluc.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.diff.gluc.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted mid-development glucose difference 
       # by mid-dev. relative nestling size
@@ -247,6 +280,10 @@
       summary(mid.diff.gluc.size.lmm.adj)    # model summary 
       confint(mid.diff.gluc.size.lmm.adj)    # 95% CIs
       #plot(mid.diff.gluc.size.lmm.adj)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(mid.diff.gluc.size.lmm.adj)
+      #, by_group=T)
      
       
       
@@ -269,6 +306,10 @@
       confint(late.base.gluc.mid.wing.lmm)    # 95% CIs
       #plot(late.base.gluc.mid.wing.lmm)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.mid.wing.lmm)
+      #, by_group=T)
+      
     ## b) Adjusted late development baseline glucose 
       # by mid-dev. right wing length
       late.base.gluc.mid.wing.lmm.adj <- lmer(base.gluc ~ 
@@ -290,6 +331,11 @@
       confint(late.base.gluc.mid.wing.lmm.adj)    # 95% CIs
       #plot(late.base.gluc.mid.wing.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.mid.wing.lmm.adj)
+      #, by_group=T)
+      
+      
   ### 4.2 Late development glucose difference (stressed - baseline) 
       # by mid-dev. right wing length models
     ## a) Unadjusted late development glucose difference  
@@ -305,6 +351,10 @@
       summary(late.diff.gluc.mid.wing.lmm)    # model summary 
       confint(late.diff.gluc.mid.wing.lmm)    # 95% CIs
      # plot(late.diff.gluc.mid.wing.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.mid.wing.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development glucose difference 
       # by mid-dev. right wing length
@@ -327,6 +377,10 @@
       confint(late.diff.gluc.mid.wing.lmm.adj)    # 95% CIs
       #plot(late.diff.gluc.mid.wing.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.mid.wing.lmm.adj)
+      #, by_group=T)
+      
       
   ### 4.3 Late development baseline glucose by mid-dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
@@ -344,6 +398,10 @@
       summary(late.base.gluc.mid.size.lmm)    # model summary 
       confint(late.base.gluc.mid.size.lmm)    # 95% CIs
       #plot(late.base.gluc.mid.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.mid.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development baseline glucose 
       # by mid-dev. relative nestling size
@@ -365,6 +423,10 @@
       confint(late.base.gluc.mid.size.lmm.adj)    # 95% CIs
       #plot(late.base.gluc.mid.size.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.mid.size.lmm.adj)
+      #, by_group=T)
+      
       
   ### 4.4 Late development glucose difference (stressed - baseline) 
       # by mid-dev. relative nestling size
@@ -383,6 +445,10 @@
       summary(late.diff.gluc.mid.size.lmm)    # model summary 
       confint(late.diff.gluc.mid.size.lmm)    # 95% CIs
       #plot(late.diff.gluc.mid.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.mid.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development glucose difference 
       # by mid-dev. relative nestling size
@@ -403,6 +469,10 @@
       summary(late.diff.gluc.mid.size.lmm.adj)    # model summary 
       confint(late.diff.gluc.mid.size.lmm.adj)    # 95% CIs
      # plot(late.diff.gluc.mid.size.lmm.adj)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.mid.size.lmm.adj)
+      #, by_group=T)
       
       
       
@@ -425,6 +495,11 @@
       confint(late.base.gluc.late.wing.lmm)    # 95% CIs
       #plot(late.base.gluc.late.wing.lmm)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.late.wing.lmm)
+      #, by_group=T)
+      
+      
     ## b) Adjusted late development baseline glucose 
       # by late dev. right wing length
       late.base.gluc.late.wing.lmm.adj <- lmer(base.gluc ~ 
@@ -445,6 +520,10 @@
       summary(late.base.gluc.late.wing.lmm.adj)    # model summary 
       confint(late.base.gluc.late.wing.lmm.adj)    # 95% CIs
       #plot(late.base.gluc.late.wing.lmm.adj)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.late.wing.lmm.adj)
+      #, by_group=T)
     
         
   ### 5.2 Late development glucose difference (stressed - baseline) 
@@ -462,6 +541,10 @@
       summary(late.diff.gluc.late.wing.lmm)    # model summary 
       confint(late.diff.gluc.late.wing.lmm)    # 95% CIs
       #plot(late.diff.gluc.late.wing.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.late.wing.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development glucose difference 
       # by late dev. right wing length
@@ -484,6 +567,10 @@
       confint(late.diff.gluc.late.wing.lmm.adj)    # 95% CIs
       #plot(late.diff.gluc.late.wing.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.late.wing.lmm.adj)
+      #, by_group=T)
+      
       
   ### 5.3 Late development baseline glucose by late dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
@@ -501,6 +588,10 @@
       summary(late.base.gluc.late.size.lmm)    # model summary 
       confint(late.base.gluc.late.size.lmm)    # 95% CIs
       #plot(late.base.gluc.late.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.late.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development baseline glucose 
       # by late dev. relative nestling size
@@ -522,6 +613,10 @@
       confint(late.base.gluc.late.size.lmm.adj)    # 95% CIs
       #plot(late.base.gluc.late.size.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.late.size.lmm.adj)
+      #, by_group=T)
+      
       
   ### 5.4 Late development glucose difference (stressed - baseline) 
       # by late dev. relative nestling size
@@ -540,6 +635,10 @@
       summary(late.diff.gluc.late.size.lmm)    # model summary 
       confint(late.diff.gluc.late.size.lmm)    # 95% CIs
       #plot(late.diff.gluc.late.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.late.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development glucose difference 
       # by late dev. relative nestling size
@@ -561,6 +660,10 @@
       confint(late.diff.gluc.late.size.lmm.adj)    # 95% CIs
       #plot(late.diff.gluc.late.size.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.late.size.lmm.adj)
+      #, by_group=T)
+      
 
   ### 5.5 Late development baseline glucose by diff (late - mid-development) 
       # nestling size
@@ -578,6 +681,10 @@
       summary(late.base.gluc.diff.size.lmm)    # model summary 
       confint(late.base.gluc.diff.size.lmm)    # 95% CIs
       #plot(late.base.gluc.diff.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.diff.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development baseline glucose 
       # by diff (late - mid-development) nestling size
@@ -600,6 +707,10 @@
       confint(late.base.gluc.diff.size.lmm.adj)    # 95% CIs
       #plot(late.base.gluc.diff.size.lmm.adj)       # check residuals
       
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.base.gluc.diff.size.lmm.adj)
+      #, by_group=T)
+      
       
   ### 5.6 Late development glucose difference (stressed - baseline) 
       # by diff (late - mid-development) nestling size
@@ -617,6 +728,10 @@
       summary(late.diff.gluc.diff.size.lmm)    # model summary 
       confint(late.diff.gluc.diff.size.lmm)    # 95% CIs
       #plot(late.diff.gluc.diff.size.lmm)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.diff.size.lmm)
+      #, by_group=T)
       
     ## b) Adjusted late development glucose difference 
       # by diff (late - mid-development) nestling size
@@ -638,6 +753,10 @@
       summary(late.diff.gluc.diff.size.lmm.adj)    # model summary 
       confint(late.diff.gluc.diff.size.lmm.adj)    # 95% CIs
       #plot(late.diff.gluc.diff.size.lmm.adj)       # check residuals
+      
+      # Marginal and conditional R-squared
+      r2_nakagawa(late.diff.gluc.diff.size.lmm.adj)
+      #, by_group=T)
       
       
   

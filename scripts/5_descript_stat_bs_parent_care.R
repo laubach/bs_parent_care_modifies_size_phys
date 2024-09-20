@@ -67,6 +67,9 @@
       #load lme4
       library('lme4')
       
+      # load performance
+      library('performance')
+      
       # load dharma
       library('DHARMa')
       
@@ -241,6 +244,7 @@
              height = 6, 
              units = c('in'), dpi = 300, limitsize = TRUE)
       
+    
       
   ### 3.7 Univariate descriptive stats parental care behaviors           
     ## a) Descriptive stats parental care behaviors
@@ -1136,6 +1140,42 @@
     #                                         na.rm = T), 2),
     #                max.gluc.diff = round(max(gluc.diff,
     #                                         na.rm = T), 2))
+      
+      
+      ## a) Histogram total feeding rates by developmental state 
+      # relative nestling size boxplot
+      mid_gluc_size_box <- nestling_parent_care %>%
+        filter(sample.state == 'mid') %>%
+        ggplot(aes(x = rt.wing.length, y = gluc.diff, fill = size.order)) + 
+        geom_boxplot() + 
+        scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+        geom_jitter(color="black", size=2, alpha=0.9) +
+        # scale_color_manual(values=c('#69b3a2', '#404080'), 
+        #                    name = 'smallest vs other nestlings',
+        #                    labels = c('small', 'other')) +
+        labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
+             mid-development relative size',
+             y ='Diff. glucose (mg/dl)') +
+        theme(plot.title = element_text(hjust = 0.5)) + # center title
+        theme(axis.ticks = element_blank()) + # remove axis ticks
+        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+        # remove background color
+        theme(panel.background = element_rect(fill = 'white')) +
+        # customize legend
+        theme(legend.title=element_text(size=10),
+              legend.text=element_text(size=8),
+              legend.position = c(0.91, 0.94))
+      
+      ## b) Print plot 
+      print(mid_gluc_size_box)
+      
+      ## c) Save plot
+      ggsave('mid_gluc_size_box.pdf', plot = mid_gluc_size_box, 
+             device = NULL, 
+             path = here('output/'), scale = 1, width = 8, 
+             height = 6, 
+             units = c('in'), dpi = 300, limitsize = TRUE) 
+      
     #   
 
 
