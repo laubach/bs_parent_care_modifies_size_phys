@@ -10,6 +10,12 @@
 ###############################################################################
 
 
+TO DO 
+add table 12 back to supp
+delete unused code, push to git, update git readme, pull back to here
+submit to biorx preprint
+
+
 ### PURPOSE: Check for and model effect modification on the relationship 
            # between size/growth and glucose by parental care 
   
@@ -142,74 +148,7 @@
       r2_nakagawa(base.gluc.wing.x.care.lmm)
       #, by_group=T)
 
-# ## c) Use ggeffects to extract predicted values
-#   base.gluc.wing.intx.care <- predict_response(base.gluc.wing.x.care.lmm,
-#                                               terms = c('rt.wing.length',
-#                                               'feed.indx'))
 
-#     ## d) A graph of the predicted values and raw data for the relationship
-#       # between right wing length and baseline glucose in low vs
-#       # average parental care nestlings **** INTX. MODEL
-#       base.gluc.by.wing.by.care.intx.pred.plot <-
-#         # raw data plot
-#         ggplot(data = subset(late_nestling_parent_care,
-#                              !is.na(x = feed.indx) &
-#                                !is.na(x = base.gluc) &
-#                                !is.na(x = rt.wing.length) &
-#                                !is.na(x = nestling.band))) +
-#         geom_point(aes(x = rt.wing.length, y = base.gluc, fill = feed.indx),
-#         color = 'black', shape = 21, # black outline around points
-#                    size = 3) +
-#         scale_fill_manual(name = 'parental care', labels = c('low', 'average'),
-#                             values=c('steelblue4', 'steelblue1')) +
-#         # predicted values plot
-#         geom_line(data = base.gluc.wing.intx.care,
-#                   aes(x = x, y = predicted, color = group), linewidth = 2,
-#                   show.legend = F) +
-#         scale_color_manual(values=c('steelblue4', 'steelblue1')) + # line color
-#         # Titles, axes, and legends
-#         labs(title = 'Predicted values and raw data for the relationship between
-# right wing length and baseline glucose levels (interaction model)') +
-#         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
-#         # bold and size title and axes labels
-#         theme(text = element_text(size=20, face = 'bold')) +
-#         #theme(legend.position = 'none') +
-#         theme(axis.ticks = element_blank()) + # remove axis ticks
-#         # remove background color
-#         theme(panel.background = element_rect(fill = 'white')) +
-#         # add major axes
-#         theme(axis.line = element_line(colour = 'black',
-#                                       size = 0.5, linetype = 'solid')) +
-#         # change axes font style, color, size, angle, margin, and legend
-#         theme(axis.text.x = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 10, r = 0,
-#                                                          b = 10, l = 0)),
-#               axis.text.y = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 0, r = 10,
-#                                                          b = 0, l = 0)),
-#               legend.title = element_text(size = 16),
-#               legend.text = element_text(size=14),
-#               legend.position = c(0.2, 0.9),
-#               legend.key = element_blank()) +
-#         xlab(expression(bold('right wing length (mm)'))) +
-#         ylab(expression(bold('baseline glucose (mg/dl)')))
-# 
-#     ## e) View plot
-#       print(base.gluc.by.wing.by.care.intx.pred.plot)
-# 
-#     ## f) Save Plot
-#       # use ggsave to save the plot
-#       ggsave('base.gluc.by.wing.by.care.intx.pred.plot.pdf',
-#              plot = base.gluc.by.wing.by.care.intx.pred.plot,
-#              device = NULL,
-#              path = paste0(here(),'/output'),
-#              scale = 1, width = 7,
-#              height = 6,
-#              units = c('in'), dpi = 300, limitsize = TRUE)
-# 
-# 
   ### 3.2 Late dev. baseline glucose by growth by parental care (feed)
       # interaction models
 
@@ -240,76 +179,7 @@
       r2_nakagawa(base.gluc.grow.x.care.lmm)
       #, by_group=T)
 
-#     ## c) Use ggeffects to extract predicted values
-#       base.gluc.grow.intx.care <- predict_response(base.gluc.grow.x.care.lmm,
-#                                                    terms = c('rt.wing.diff',
-#                                                              'feed.indx'))
-#
-#    ## d) A graph of the predicted values and raw data for the relationship
-#       # between growth and baseline glucose in low vs
-#       # average parental care nestlings **** INTX. MODEL
-#       base.gluc.by.grow.by.care.intx.pred.plot <-
-#         # raw data plot
-#         ggplot(data = subset(late_nestling_parent_care,
-#                              !is.na(x = feed.indx) &
-#                                !is.na(x = base.gluc) &
-#                                !is.na(x = rt.wing.diff) &
-#                                !is.na(x = nestling.band))) +
-#         geom_point(aes(x = rt.wing.diff, y = base.gluc, fill = feed.indx),
-#                    color = 'black', shape = 21, # black outline around points
-#                    size = 3) +
-#         scale_fill_manual(name = 'parental care', labels = c('low', 'average'),
-#                           values=c('steelblue4', 'steelblue1')) +
-#         # predicted values plots
-#         geom_line(data = base.gluc.grow.intx.care,
-#                   aes(x = x, y = predicted, color = group), linewidth = 2,
-#                   show.legend = F) +
-#         scale_color_manual(values=c('steelblue4', 'steelblue1')) + # line color
-#         # Titles, axes, and legends
-#         labs(title = 'Predicted values and raw data for the relationship between
-# right wing growth and baseline glucose levels (interaction model)') +
-#         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
-#         # bold and size title and axes labels
-#         theme(text = element_text(size=20, face = 'bold')) +
-#         #theme(legend.position = 'none') +
-#         theme(axis.ticks = element_blank()) + # remove axis ticks
-#         # remove background color
-#         theme(panel.background = element_rect(fill = 'white')) +
-#         # add major axes
-#         theme(axis.line = element_line(colour = 'black',
-#                                        size = 0.5, linetype = 'solid')) +
-# 
-#         # change axes font style, color, size, angle, margin, and legend
-#         theme(axis.text.x = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 10, r = 0,
-#                                                          b = 10, l = 0)),
-#               axis.text.y = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 0, r = 10,
-#                                                          b = 0, l = 0)),
-#               legend.title = element_text(size = 16),
-#               legend.text = element_text(size=14),
-#               legend.position = c(0.2, 0.9),
-#               legend.key = element_blank()) +
-#         xlab(expression(bold('right wing growth (mm)'))) +
-#         ylab(expression(bold('baseline glucose (mg/dl)')))
-# 
-#       ## e) View plot
-#       print(base.gluc.by.grow.by.care.intx.pred.plot)
-# 
-#       ## f) Save Plot
-#       # use ggsave to save the plot
-#       ggsave('base.gluc.by.grow.by.care.intx.pred.plot.pdf',
-#              plot = base.gluc.by.grow.by.care.intx.pred.plot,
-#              device = NULL,
-#              path = paste0(here(),'/output'),
-#              scale = 1, width = 7,
-#              height = 6,
-#              units = c('in'), dpi = 300, limitsize = TRUE)
-# 
-# 
-# 
+
   ### 3.3 Late dev. glucose response (stress - baseline) by wing length by
       # parental care (feed) interaction models
 
@@ -340,82 +210,11 @@
       r2_nakagawa(gluc.diff.wing.x.care.lmm)
       #, by_group=T)
 
-    # ## c) Use ggeffects to extract predicted values
-    #   gluc.diff.wing.intx.care <- predict_response(gluc.diff.wing.x.care.lmm,
-    #                                                terms = c('rt.wing.length',
-    #                                                          'feed.indx'))
-
-#     ## d) A graph of the predicted values and raw data for the relationship
-#       # between right wing length and glucose response in low vs
-#       # average parental care nestlings **** INTX. MODEL
-#       gluc.diff.by.wing.by.care.intx.pred.plot <-
-#         # raw data plot
-#         ggplot(data = subset(late_nestling_parent_care,
-#                              !is.na(x = feed.indx) &
-#                                !is.na(x = gluc.diff) &
-#                                !is.na(x = rt.wing.length) &
-#                                !is.na(x = nestling.band))) +
-#         geom_point(aes(x = rt.wing.length, y = gluc.diff, fill = feed.indx),
-#                    color = 'black', shape = 21, # black outline around points
-#                    size = 3) +
-#         scale_fill_manual(name = 'parental care', labels = c('low', 'average'),
-#                           values=c('steelblue4', 'steelblue1')) +
-#         # predicted values plots
-#         geom_line(data = gluc.diff.wing.intx.care,
-#                   aes(x = x, y = predicted, color = group), linewidth = 2,
-#                   show.legend = F) +
-#         scale_color_manual(values=c('steelblue4', 'steelblue1')) + # line color
-#         # # raw data lines based on lm
-#         # geom_smooth(method = lm, se = F, aes(x = rt.wing.length, y = gluc.diff,
-#         #                                      color = feed.indx ))
-#         # Titles, axes, and legends
-#         labs(title = 'Predicted values and raw data for the relationship between
-# right wing length and stress induced glucose response (interaction model)') +
-#         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
-#         # bold and size title and axes labels
-#         theme(text = element_text(size=20, face = 'bold')) +
-#         #theme(legend.position = 'none') +
-#         theme(axis.ticks = element_blank()) + # remove axis ticks
-#         # remove background color
-#         theme(panel.background = element_rect(fill = 'white')) +
-#         # add major axes
-#         theme(axis.line = element_line(colour = 'black',
-#                                        size = 0.5, linetype = 'solid')) +
-# 
-#         # change axes font style, color, size, angle, margin, and legend
-#         theme(axis.text.x = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 10, r = 0,
-#                                                          b = 10, l = 0)),
-#               axis.text.y = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 0, r = 10,
-#                                                          b = 0, l = 0)),
-#               legend.title = element_text(size = 16),
-#               legend.text = element_text(size=14),
-#               legend.position = c(0.2, 0.9),
-#               legend.key = element_blank()) +
-#         xlab(expression(bold('right wing length (mm)'))) +
-#         ylab(expression(bold('glucose response (mg/dl)')))
-# 
-#       ## e) View plot
-#       print(gluc.diff.by.wing.by.care.intx.pred.plot)
-# 
-#       ## f) Save Plot
-#       # use ggsave to save the plot
-#       ggsave('gluc.diff.by.wing.by.care.intx.pred.plot.pdf',
-#              plot = gluc.diff.by.wing.by.care.intx.pred.plot,
-#              device = NULL,
-#              path = paste0(here(),'/output'),
-#              scale = 1, width = 7,
-#              height = 6,
-#              units = c('in'), dpi = 300, limitsize = TRUE)
-# 
-# 
+  
   ### 3.4 Late dev. glucose response (stress - baseline) by right wing growth by
       # parental care (feed) interaction models
 
-      ## a) Late dev. glucose response by late dev.
+    ## a) Late dev. glucose response by late dev.
       # right wing growth x feed.indx
       gluc.diff.grow.x.care.lmm <- lmerTest::lmer(gluc.diff ~ scale(rt.wing.diff) *
                                           feed.indx +
@@ -432,7 +231,7 @@
                                              !is.na(x = rt.wing.diff) &
                                              !is.na(x = nestling.band)))
 
-      ## b) Model summary
+    ## b) Model summary
       summary(gluc.diff.grow.x.care.lmm)    # model summary
       confint(gluc.diff.grow.x.care.lmm, level = 0.95,
               method = 'profile')  # 95% CIs
@@ -442,78 +241,6 @@
       r2_nakagawa(gluc.diff.grow.x.care.lmm)
       #, by_group=T)
       
-
-      # ## c) Use ggeffects to extract predicted values
-      # gluc.diff.grow.intx.care <- predict_response(gluc.diff.grow.x.care.lmm,
-      #                                              terms = c('rt.wing.diff',
-      #                                                        'feed.indx'))
-
-#     ## d) A graph of the predicted values and raw data for the relationship
-#       # between right wing growth and glucose response in low vs
-#       # average parental care nestlings  **** INTX. MODEL
-#       gluc.diff.by.grow.by.care.intx.pred.plot <-
-#         # raw data plot
-#         ggplot(data = subset(late_nestling_parent_care,
-#                              !is.na(x = feed.indx) &
-#                                !is.na(x = gluc.diff) &
-#                                !is.na(x = rt.wing.diff) &
-#                                !is.na(x = nestling.band))) +
-#         geom_point(aes(x = rt.wing.diff, y = gluc.diff, fill = feed.indx),
-#                    color = 'black', shape = 21, # black outline around points
-#                    size = 3) +
-#         scale_fill_manual(name = 'parental care', labels = c('low', 'average'),
-#                           values=c('steelblue4', 'steelblue1')) +
-#         # predicted values plots
-#         geom_line(data = gluc.diff.grow.intx.care,
-#                   aes(x = x, y = predicted, color = group), linewidth = 2,
-#                   show.legend = F) +
-#         scale_color_manual(values=c('steelblue4', 'steelblue1')) + # line color
-#         # # raw data lines based on lm
-#         # geom_smooth(method = lm, se = F, aes(x = rt.wing.diff, y = gluc.diff,
-#         #                                      color = feed.indx ))
-#         # Titles, axes, and legends
-#         labs(title = 'Predicted values and raw data for the relationship between
-# right wing growth and stress induced glucose response (interaction model)') +
-#         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
-#         # bold and size title and axes labels
-#         theme(text = element_text(size=20, face = 'bold')) +
-#         #theme(legend.position = 'none') +
-#         theme(axis.ticks = element_blank()) + # remove axis ticks
-#         # remove background color
-#         theme(panel.background = element_rect(fill = 'white')) +
-#         # add major axes
-#         theme(axis.line = element_line(colour = 'black',
-#                                        size = 0.5, linetype = 'solid')) +
-# 
-#         # change axes font style, color, size, angle, margin, and legend
-#         theme(axis.text.x = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 10, r = 0,
-#                                                          b = 10, l = 0)),
-#               axis.text.y = element_text(face='bold', color='black',
-#                                          size=20, angle=0,
-#                                          margin = margin(t = 0, r = 10,
-#                                                          b = 0, l = 0)),
-#               legend.title = element_text(size = 16),
-#               legend.text = element_text(size=14),
-#               legend.position = c(0.2, 0.9),
-#               legend.key = element_blank()) +
-#         xlab(expression(bold('right wing growth (mm)'))) +
-#         ylab(expression(bold('glucose response (mg/dl)')))
-# 
-#       ## e) View plot
-#       print(gluc.diff.by.grow.by.care.intx.pred.plot)
-# 
-#       ## f) Save Plot
-#       # use ggsave to save the plot
-#       ggsave('gluc.diff.by.grow.by.care.intx.pred.plot.pdf',
-#              plot = gluc.diff.by.grow.by.care.intx.pred.plot,
-#              device = NULL,
-#              path = paste0(here(),'/output'),
-#              scale = 1, width = 7,
-#              height = 6,
-#              units = c('in'), dpi = 300, limitsize = TRUE)
-
 
       
 
@@ -657,27 +384,6 @@
              height = 6,
              units = c('in'), dpi = 300, limitsize = TRUE)   
       
-    # ## j) High parental care: late dev. baseline glucose by late dev. 
-    #   # right wing length 
-    #   base.gluc.wing.hi.care.lmm <- lmer(base.gluc ~ 
-    #                                     scale(rt.wing.length) +
-    #                                     scale(base.gluc.s) + 
-    #                                     scale(nestling.age) +
-    #                                   (1|nest.id), 
-    #                                   data = subset(late_nestling_parent_care,
-    #                                                 feed.indx == 'hi' &
-    #                                       # sensitivity 3 - index 4 
-    #                                       # care.indx.4 == 'hi' &
-    #                                         !is.na(x = base.gluc) &
-    #                                   # indx.3 and indx.4 have equal samp size
-    #                                         !is.na(x = rt.wing.length) &
-    #                                         !is.na(x = nestling.band)))
-    #   
-    #   summary(base.gluc.wing.hi.care.lmm)    # model summary 
-    #   confint(base.gluc.wing.hi.care.lmm)
-    #   plot(base.gluc.wing.hi.care.lmm)       # check residuals
-      
-  
       
   ### 4.2 Late dev. baseline glucose by growth, stratified by parental 
       # care models. **** STRATIFIED MODELS
@@ -808,26 +514,6 @@
              height = 6,
              units = c('in'), dpi = 300, limitsize = TRUE)           
       
-    # ## j) High parental care: late dev. baseline glucose by growth
-    #   base.gluc.grow.hi.care.lmm <- lmer(base.gluc ~ 
-    #                                     scale(rt.wing.diff) +
-    #                                     scale(base.gluc.s) + 
-    #                                     scale(nestling.age) +
-    #                                   (1|nest.id), 
-    #                                   data = subset(late_nestling_parent_care,
-    #                                                 feed.indx == 'hi' &
-    #                                       # sensitivity 3 - index 4 
-    #                                       # care.indx.4 == 'hi' &
-    #                                         !is.na(x = base.gluc) &
-    #                                    # indx.3 and indx.4 have equal samp size
-    #                                         !is.na(x = rt.wing.diff) &
-    #                                         !is.na(x = nestling.band)))
-    # 
-    # ## k) model summary 
-    #   summary(base.gluc.grow.hi.care.lmm)    # model summary 
-    #   confint(base.gluc.grow.hi.care.lmm)
-    #   plot(base.gluc.grow.hi.care.lmm)       # check residuals
-      
       
   ### 4.3 Late dev. glucose response (stress - baseline) by rt.wing.length, 
       # stratified by parental care models  **** STRATIFIED MODELS
@@ -957,26 +643,6 @@
              height = 6,
              units = c('in'), dpi = 300, limitsize = TRUE)           
       
-    # ## j) High parental care: late dev. glucose response by growth
-    #   gluc.diff.wing.hi.care.lmm <- lmer(gluc.diff ~ 
-    #                                     scale(rt.wing.length) +
-    #                                     scale(base.gluc.s) + 
-    #                                     scale(nestling.age) +
-    #                                   (1|nest.id), 
-    #                                   data = subset(late_nestling_parent_care,
-    #                                                 feed.indx == 'hi' &
-    #                                       # sensitivity 3 - index 4 
-    #                                       # care.indx.4 == 'hi' &
-    #                                         !is.na(x = gluc.diff) &
-    #                                   # indx.3 and indx.4 have equal samp size
-    #                                          !is.na(x = rt.wing.length) &
-    #                                          !is.na(x = nestling.band)))
-    #   
-    #   summary(gluc.diff.wing.hi.care.lmm)    # model summary 
-    #   confint(gluc.diff.wing.hi.care.lmm)
-    #   plot(gluc.diff.wing.hi.care.lmm)       # check residuals
-      
-      
       
   ### 4.4 Late dev. glucose response (stress - baseline) by growth, 
       # stratified by parental care models. **** STRATIFIED MODELS
@@ -1104,24 +770,6 @@
              height = 6,
              units = c('in'), dpi = 300, limitsize = TRUE)      
       
-    # ## j) High parental care: late dev. glucose response by growth
-    #   gluc.diff.grow.hi.care.lmm <- lmer(gluc.diff ~ 
-    #                                        scale(rt.wing.diff) +
-    #                                        scale(base.gluc.s) + 
-    #                                        scale(nestling.age) +
-    #                                        (1|nest.id), 
-    #                                   data = subset(late_nestling_parent_care,
-    #                                         feed.indx == 'hi' &
-    #                                         # sensitivity 3 - index 4 
-    #                                         # care.indx.4 == 'hi' &
-    #                                         !is.na(x = gluc.diff) &
-    #                                   # indx.3 and indx.4 have equal samp size
-    #                                         !is.na(x = rt.wing.diff) &
-    #                                         !is.na(x = nestling.band)))
-    #   
-    #   summary(gluc.diff.grow.hi.care.lmm)    # model summary 
-    #   confint(gluc.diff.grow.hi.care.lmm)
-    #   plot(gluc.diff.grow.hi.care.lmm)       # check residuals
       
       
       
@@ -1155,23 +803,14 @@
       # Note: 'avg' renamed 'high' during review
       base.gluc.wing.avg.care.est$model <- c("high parental care")
       
-    # ## e) High parental care model: extract estimates and tidy the data frame 
-    #   base.gluc.wing.hi.care.est <- tidy(base.gluc.wing.hi.care.lmm, 
-    #                                       conf.int = T, 
-    #                                       conf.method = 'profile', 
-    #                                       conf.level = 0.95) %>%
-    #     filter(term == 'scale(rt.wing.length)')
-    #   
-    # ## f) High parental care model: Label the estimates in data frame
-    #   base.gluc.wing.hi.care.est$model <- c("High parental care")  
-    #   
-    ## g) Combine regression estimates into a tidy table
+   
+    ## e) Combine regression estimates into a tidy table
       base.gluc.by.wing.by.care <- bind_rows(base.gluc.wing.low.care.est,
                                       base.gluc.wing.avg.care.est
                                       #, base.gluc.wing.hi.care.est
                                       )
       
-    ## h) Re-code *nominal* factor (with ordered levels)  
+    ## f) Re-code *nominal* factor (with ordered levels)  
       # Set levels (odering) of 'model' variable 
       base.gluc.by.wing.by.care <- 
         transform(base.gluc.by.wing.by.care, 
@@ -1181,7 +820,7 @@
                                                      #,'High parental care'
                                                      )))  
       
-    ## i) Graph results of baseline vs stressed state glucose at mid and late
+    ## g) Graph results of baseline vs stressed state glucose at mid and late
       # development
       base.gluc.by.wing.by.care.plot <- 
         ggplot(base.gluc.by.wing.by.care, aes(x = model, y = estimate, 
@@ -1229,7 +868,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
       
     print(base.gluc.by.wing.by.care.plot)
       
-    ## j) Save Plot
+    ## h) Save Plot
       # use ggsave to save the plot
       ggsave('base.gluc.by.wing.by.care.plot.pdf', 
              plot = base.gluc.by.wing.by.care.plot, 
@@ -1264,24 +903,13 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
     ## d) Avg parental care model: Label the estimates in data frame
       base.gluc.grow.avg.care.est$model <- c("high parental care")
       
-    # ## e) High parental care model: extract estimates and tidy the data frame 
-    #   base.gluc.grow.hi.care.est <- tidy(base.gluc.grow.hi.care.lmm, 
-    #                                      conf.int = T, 
-    #                                      conf.method = 'profile', 
-    #                                      conf.level = 0.95) %>%
-    #     filter(term == 'scale(rt.wing.diff)')
-    #   
-    # ## f) High parental care model: Label the estimates in data frame
-    #   base.gluc.grow.hi.care.est$model <- c("High parental care")  
-      
-      
-    ## g) Combine regression estimates into a tidy table
+    ## e) Combine regression estimates into a tidy table
       base.gluc.by.grow.by.care <- bind_rows(base.gluc.grow.low.care.est,
                                              base.gluc.grow.avg.care.est
                                             # , base.gluc.grow.hi.care.est
                                              )
       
-    ## h) Re-code *nominal* factor (with ordered levels)  
+    ## f) Re-code *nominal* factor (with ordered levels)  
       # Set levels (odering) of 'model' variable 
       base.gluc.by.grow.by.care <- 
         transform(base.gluc.by.grow.by.care, 
@@ -1291,7 +919,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
                                             #, 'High parental care'
                                             )))  
       
-    ## i) Graph results of baseline vs stressed state glucose at mid and late
+    ## g) Graph results of baseline vs stressed state glucose at mid and late
       # development
       base.gluc.by.grow.by.care.plot <- 
         ggplot(base.gluc.by.grow.by.care, aes(x = model, y = estimate, 
@@ -1339,7 +967,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
       
       print(base.gluc.by.grow.by.care.plot)
       
-    ## j) Save Plot
+    ## h) Save Plot
       # use ggsave to save the plot
       ggsave('base.gluc.by.grow.by.care.plot.pdf', 
              plot = base.gluc.by.grow.by.care.plot, 
@@ -1374,23 +1002,13 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
     ## d) Avg parental care model: Label the estimates in data frame
       gluc.diff.wing.avg.care.est$model <- c("high parental care")
       
-      # ## e) High parental care model: extract estimates and tidy the data frame 
-      #   gluc.diff.wing.hi.care.est <- tidy(gluc.diff.wing.hi.care.lmm, 
-      #                                       conf.int = T, 
-      #                                       conf.method = 'profile', 
-      #                                       conf.level = 0.95) %>%
-      #     filter(term == 'scale(rt.wing.length)')
-      #   
-      # ## f) High parental care model: Label the estimates in data frame
-      #   gluc.diff.wing.hi.care.est$model <- c("High parental care")  
-      #   
-    ## g) Combine regression estimates into a tidy table
+    ## e) Combine regression estimates into a tidy table
       gluc.diff.by.wing.by.care <- bind_rows(gluc.diff.wing.low.care.est,
                                              gluc.diff.wing.avg.care.est
                                              #, gluc.diff.wing.hi.care.est
       )
       
-    ## h) Re-code *nominal* factor (with ordered levels)  
+    ## f) Re-code *nominal* factor (with ordered levels)  
       # Set levels (odering) of 'model' variable 
       gluc.diff.by.wing.by.care <- 
         transform(gluc.diff.by.wing.by.care, 
@@ -1400,7 +1018,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
                                             #,'High parental care'
                                  )))  
       
-    ## i) Graph results of baseline vs stressed state glucose at mid and late
+    ## g) Graph results of baseline vs stressed state glucose at mid and late
       # development
       gluc.diff.by.wing.by.care.plot <- 
         ggplot(gluc.diff.by.wing.by.care, aes(x = model, y = estimate, 
@@ -1448,7 +1066,7 @@ response (stress - baseline) from models stratified by amount of parental care')
       
       print(gluc.diff.by.wing.by.care.plot)
       
-      ## j) Save Plot
+    ## h) Save Plot
       # use ggsave to save the plot
       ggsave('gluc.diff.by.wing.by.care.plot.pdf', 
              plot = gluc.diff.by.wing.by.care.plot, 
@@ -1483,25 +1101,13 @@ response (stress - baseline) from models stratified by amount of parental care')
     ## d) Avg parental care model: Label the estimates in data frame
       gluc.diff.grow.avg.care.est$model <- c("high parental care")
       
-    # ## e) High parental care model: extract estimates and tidy the data frame 
-    #   gluc.diff.grow.hi.care.est <- tidy(gluc.diff.grow.hi.care.lmm, 
-
-    #                                      conf.int = T, 
-    #                                      conf.method = 'profile', 
-    #                                      conf.level = 0.95) %>%
-    #     filter(term == 'scale(rt.wing.diff)')
-    #   
-    # ## f) High parental care model: Label the estimates in data frame
-    #   gluc.diff.grow.hi.care.est$model <- c("High parental care")  
-      
-      
-    ## g) Combine regression estimates into a tidy table
+    ## e) Combine regression estimates into a tidy table
       gluc.diff.by.grow.by.care <- bind_rows(gluc.diff.grow.low.care.est,
                                              gluc.diff.grow.avg.care.est
                                              #, gluc.diff.grow.hi.care.est
                                              )
       
-    ## h) Re-code *nominal* factor (with ordered levels)  
+    ## f) Re-code *nominal* factor (with ordered levels)  
       # Set levels (odering) of 'model' variable 
       gluc.diff.by.grow.by.care <- 
         transform(gluc.diff.by.grow.by.care, 
@@ -1511,7 +1117,7 @@ response (stress - baseline) from models stratified by amount of parental care')
                                             #, 'High parental care'
                                             )))  
       
-    ## i) Graph results of baseline vs stressed state glucose at mid and late
+    ## g) Graph results of baseline vs stressed state glucose at mid and late
       # development
       gluc.diff.by.grow.by.care.plot <- 
         ggplot(gluc.diff.by.grow.by.care, aes(x = model, y = estimate, 
@@ -1559,7 +1165,7 @@ response (stress - baseline) from models stratified by amount of parental care')
       
       print(gluc.diff.by.grow.by.care.plot)
       
-    ## j) Save Plot
+    ## h) Save Plot
       # use ggsave to save the plot
       ggsave('gluc.diff.by.grow.by.care.plot.pdf', 
              plot = gluc.diff.by.grow.by.care.plot, 
@@ -1571,9 +1177,3 @@ response (stress - baseline) from models stratified by amount of parental care')
 
   
 
-
-      
-  
-      
-    
-               
