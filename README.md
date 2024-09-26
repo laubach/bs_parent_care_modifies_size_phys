@@ -1,5 +1,5 @@
 # bs_parent_care_modifies_size_phys
-Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. (in revision) The American Naturalist. Parental care modifies the roles of size and growth in the development of early-life physiology.
+Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. (in revision) The American Naturalist. Parental care modifies the role of early-life size and growth in shaping future physiology.
 
 
 #### By: Zachary M. Laubach
@@ -10,9 +10,9 @@ Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. (in revision) The A
 #### Purpose: This repository contains the scripts, data, and output necessary to reproduce the analysis for this paper. Scripts are modular and numbered in the order they are to be run. An overview of the repository organization and file descriptions are provided below.
 
 This analysis was performed in R
-	* R version 4.3.0 (2023-04-21)
-	* Platform: x86_64-apple-darwin20 (64-bit)
-	* Running under: macOS Ventura 13.3.1
+	* R version 4.2.3 (2023-03-15)
+	* Platform: x86_64-apple-darwin17.0 (64-bit)
+	* Running under: macOS 14.2.1
 	
 ---- 
 
