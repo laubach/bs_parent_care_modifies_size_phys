@@ -6,14 +6,9 @@
 #############               parental care behaviors               #############
 #############                  By: Zach Laubach                   #############
 #############                created: 10 June 2022                #############
-#############              last updated: 06 Feb 2024              #############
+#############             last updated: 23 Sept 2024              #############
 ###############################################################################
 
-
-TO DO 
-add table 12 back to supp
-delete unused code, push to git, update git readme, pull back to here
-submit to biorx preprint
 
 
 ### PURPOSE: Check for and model effect modification on the relationship 
