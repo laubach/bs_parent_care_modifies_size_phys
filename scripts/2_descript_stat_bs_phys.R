@@ -4,13 +4,15 @@
 #############                                                     #############
 #############                2. Descriptive Stats:                #############
 #############                 Size and physiology                 #############
+#############                                                     #############
 #############                  By: Zach Laubach                   #############
 #############                created: 12 May 2022                 #############
-#############              last updated: 30 Aug 2024              #############
+#############              last updated: 11 Nov 2024              #############
 ###############################################################################
 
 
-### PURPOSE: Calculate descriptive statistics and visualize glucose data.
+  ### PURPOSE: Calculate descriptive statistics and visualize size and 
+             # glucose data.
   
   
   # Code Blocks
@@ -46,18 +48,18 @@
      
     ## b) Graph Plotting and Visualization Packages
       # load ggplot2 packages
-      library ('ggplot2')
+        library ('ggplot2')
       
-      library('hrbrthemes')
+        library('hrbrthemes')
   
-      library('viridis')
+        library('viridis')
 
       # load gridExtra packages
-      library ('gridExtra')
+        library ('gridExtra')
       
     ## b) Modelling Packages
       # load nlme packages
-      library ('nlme')
+        library ('nlme')
       
         
   ### 1.3 Get Version and Session Info
@@ -65,9 +67,9 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.2.3 (2023-03-15)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS 14.2.1
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
     
   
   ### 1.4 Set working directory 
@@ -80,7 +82,7 @@
 ###############################################################################  
   
   ### 2.1 Load RData
-    ## a) Load RData tidy barn swallow data
+    ## a) Load tidy barn swallow RData 
       load(here('data/2_5_tidy_bs_phys_data.RData'))
       
       
@@ -123,12 +125,12 @@
         select(c(nestling.band, size.by.avg)) %>%
         rename(mid.size.by.avg = size.by.avg)
       
-    ## i) Left join diff measurements to late_nestling_size data frames
+    ## i) Left join mid.size.by.avg measurements to late_nestling_size data 
       late_nestling_size <- late_nestling_size %>%
         left_join(mid_size_by_avg, by = c('nestling.band' = 'nestling.band'), 
                   copy = F)
       
-    ## i) Left join diff measurements to late_nestling_size data frames
+    ## j) Rename size.by.avg variable as late.size.by.avg 
       late_nestling_size <- late_nestling_size %>%
         rename(late.size.by.avg = size.by.avg)
       
@@ -472,1036 +474,1033 @@
 ###############################################################################
       
   ### 5.1 Bivariate descriptive stats 
-    ## a) Blood glucose by min versus other size descriptive stats
-      bivar_gluc_size <- nestling_parent_care %>%
-        group_by(sample.state, size.order) %>%
-        summarise (n.1st.gluc = sum(!is.na(base.gluc)),
-                   avg.1st.gluc = round (mean(base.gluc, 
-                                          na.rm = T),2),
-                   stdev.1st.gluc = round (sd(base.gluc, 
-                                          na.rm = T), 2),
-                   med.1st.gluc = round(median(base.gluc,
-                                           na.rm = T), 2),
-                   min.1st.gluc = round(min(base.gluc,
-                                        na.rm = T), 2),
-                   max.1st.gluc = round(max(base.gluc,
-                                        na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
-                                              na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
-                                              na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
-                                               na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
-                                            na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                            na.rm = T), 2))
-      
-    ## b) Blood glucose by size above or below avg descriptive stats
-      bivar_gluc_size_avg <- nestling_parent_care %>%
-        group_by(sample.state, size.by.avg) %>%
-        summarise (n.1st.gluc = sum(!is.na(base.gluc)),
-                   avg.1st.gluc = round (mean(base.gluc, 
-                                              na.rm = T),2),
-                   stdev.1st.gluc = round (sd(base.gluc, 
-                                              na.rm = T), 2),
-                   med.1st.gluc = round(median(base.gluc,
-                                               na.rm = T), 2),
-                   min.1st.gluc = round(min(base.gluc,
-                                            na.rm = T), 2),
-                   max.1st.gluc = round(max(base.gluc,
-                                            na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
-                                               na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
-                                               na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
-                                                na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
-                                             na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                             na.rm = T), 2))
-      
-  ## c) Blood glucose by mites descriptive stats   
-      bivar_gluc_mite <- nestling_parent_care %>%
-        group_by(sample.state, mite.bin) %>%
-        summarise (n.1st.gluc = sum(!is.na(base.gluc)),
-                   avg.1st.gluc = round (mean(base.gluc, 
-                                              na.rm = T),2),
-                   stdev.1st.gluc = round (sd(base.gluc, 
-                                              na.rm = T), 2),
-                   med.1st.gluc = round(median(base.gluc,
-                                               na.rm = T), 2),
-                   min.1st.gluc = round(min(base.gluc,
-                                            na.rm = T), 2),
-                   max.1st.gluc = round(max(base.gluc,
-                                            na.rm = T), 2),
-                   n.gluc.diff = sum(!is.na(gluc.diff)),
-                   avg.gluc.diff = round (mean(gluc.diff, 
-                                               na.rm = T),2),
-                   stdev.gluc.diff = round (sd(gluc.diff, 
-                                               na.rm = T), 2),
-                   med.gluc.diff = round(median(gluc.diff,
-                                                na.rm = T), 2),
-                   min.gluc.diff = round(min(gluc.diff,
-                                             na.rm = T), 2),
-                   max.gluc.diff = round(max(gluc.diff,
-                                             na.rm = T), 2))
-      
-      
-  ### 5.2 Bivariate graphs for mid-development (~day 8) blood glucose diffs.
-    ## a) Mid-development difference blood glucose by mid-development 
-      # relative nestling size boxplot
-      mid_gluc_size_box <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = rt.wing.length, y = gluc.diff, fill = size.order)) + 
-        geom_boxplot() + 
-        scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        geom_jitter(color="black", size=2, alpha=0.9) +
-        # scale_color_manual(values=c('#69b3a2', '#404080'), 
-        #                    name = 'smallest vs other nestlings',
-        #                    labels = c('small', 'other')) +
-        labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
-             mid-development relative size',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## b) Print plot 
-      print(mid_gluc_size_box)
-      
-    ## c) Save plot
-      ggsave('mid_gluc_size_box.pdf', plot = mid_gluc_size_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## d) Mid-development difference blood glucose by mid-development 
-      # mites (y/n) boxplot
-      mid_gluc_mite_box <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = mite.bin, y = gluc.diff, fill = mite.bin)) + 
-        geom_boxplot() + 
-        #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        #geom_jitter(color="black", size=2, alpha=0.9) +
-        scale_color_manual(values=c('purple', 'dark green')) +
-        labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
-             mid-development mites (y/n)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## e) Print plot 
-      print(mid_gluc_mite_box)
-      
-    ## f) Save plot
-      ggsave('mid_gluc_mite_box.pdf', plot = mid_gluc_mite_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)   
-      
-    ## g) Mid-development difference blood glucose by mid-development nest age
-      mid_gluc_age_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = nestling.age, y = gluc.diff)) + 
-        geom_point() + 
-        labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
-             mid-development nest age',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## h) Print plot 
-      print(mid_gluc_age_scatter)
-      
-    ## i) Save plot
-      ggsave('mid_gluc_age_scatter.pdf', plot = mid_gluc_age_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
+  #   ## a) Blood glucose by min versus other size descriptive stats
+  #     bivar_gluc_size <- nestling_parent_care %>%
+  #       group_by(sample.state, size.order) %>%
+  #       summarise (n.1st.gluc = sum(!is.na(base.gluc)),
+  #                  avg.1st.gluc = round (mean(base.gluc, 
+  #                                         na.rm = T),2),
+  #                  stdev.1st.gluc = round (sd(base.gluc, 
+  #                                         na.rm = T), 2),
+  #                  med.1st.gluc = round(median(base.gluc,
+  #                                          na.rm = T), 2),
+  #                  min.1st.gluc = round(min(base.gluc,
+  #                                       na.rm = T), 2),
+  #                  max.1st.gluc = round(max(base.gluc,
+  #                                       na.rm = T), 2),
+  #                  n.gluc.diff = sum(!is.na(gluc.diff)),
+  #                  avg.gluc.diff = round (mean(gluc.diff, 
+  #                                             na.rm = T),2),
+  #                  stdev.gluc.diff = round (sd(gluc.diff, 
+  #                                             na.rm = T), 2),
+  #                  med.gluc.diff = round(median(gluc.diff,
+  #                                              na.rm = T), 2),
+  #                  min.gluc.diff = round(min(gluc.diff,
+  #                                           na.rm = T), 2),
+  #                  max.gluc.diff = round(max(gluc.diff,
+  #                                           na.rm = T), 2))
+  #     
+  #   ## b) Blood glucose by size above or below avg descriptive stats
+  #     bivar_gluc_size_avg <- nestling_parent_care %>%
+  #       group_by(sample.state, size.by.avg) %>%
+  #       summarise (n.1st.gluc = sum(!is.na(base.gluc)),
+  #                  avg.1st.gluc = round (mean(base.gluc, 
+  #                                             na.rm = T),2),
+  #                  stdev.1st.gluc = round (sd(base.gluc, 
+  #                                             na.rm = T), 2),
+  #                  med.1st.gluc = round(median(base.gluc,
+  #                                              na.rm = T), 2),
+  #                  min.1st.gluc = round(min(base.gluc,
+  #                                           na.rm = T), 2),
+  #                  max.1st.gluc = round(max(base.gluc,
+  #                                           na.rm = T), 2),
+  #                  n.gluc.diff = sum(!is.na(gluc.diff)),
+  #                  avg.gluc.diff = round (mean(gluc.diff, 
+  #                                              na.rm = T),2),
+  #                  stdev.gluc.diff = round (sd(gluc.diff, 
+  #                                              na.rm = T), 2),
+  #                  med.gluc.diff = round(median(gluc.diff,
+  #                                               na.rm = T), 2),
+  #                  min.gluc.diff = round(min(gluc.diff,
+  #                                            na.rm = T), 2),
+  #                  max.gluc.diff = round(max(gluc.diff,
+  #                                            na.rm = T), 2))
+  #     
+  # ## c) Blood glucose by mites descriptive stats   
+  #     bivar_gluc_mite <- nestling_parent_care %>%
+  #       group_by(sample.state, mite.bin) %>%
+  #       summarise (n.1st.gluc = sum(!is.na(base.gluc)),
+  #                  avg.1st.gluc = round (mean(base.gluc, 
+  #                                             na.rm = T),2),
+  #                  stdev.1st.gluc = round (sd(base.gluc, 
+  #                                             na.rm = T), 2),
+  #                  med.1st.gluc = round(median(base.gluc,
+  #                                              na.rm = T), 2),
+  #                  min.1st.gluc = round(min(base.gluc,
+  #                                           na.rm = T), 2),
+  #                  max.1st.gluc = round(max(base.gluc,
+  #                                           na.rm = T), 2),
+  #                  n.gluc.diff = sum(!is.na(gluc.diff)),
+  #                  avg.gluc.diff = round (mean(gluc.diff, 
+  #                                              na.rm = T),2),
+  #                  stdev.gluc.diff = round (sd(gluc.diff, 
+  #                                              na.rm = T), 2),
+  #                  med.gluc.diff = round(median(gluc.diff,
+  #                                               na.rm = T), 2),
+  #                  min.gluc.diff = round(min(gluc.diff,
+  #                                            na.rm = T), 2),
+  #                  max.gluc.diff = round(max(gluc.diff,
+  #                                            na.rm = T), 2))
+  #     
+  #     
+  # ### 5.2 Bivariate graphs for mid-development (~day 8) blood glucose diffs.
+  #   ## a) Mid-development difference blood glucose by mid-development 
+  #     # relative nestling size boxplot
+  #     mid_gluc_size_box <- nestling_parent_care %>%
+  #       filter(sample.state == 'mid') %>%
+  #       ggplot(aes(x = rt.wing.length, y = gluc.diff, fill = size.order)) + 
+  #       geom_boxplot() + 
+  #       scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  #       geom_jitter(color="black", size=2, alpha=0.9) +
+  #       # scale_color_manual(values=c('#69b3a2', '#404080'), 
+  #       #                    name = 'smallest vs other nestlings',
+  #       #                    labels = c('small', 'other')) +
+  #       labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
+  #            mid-development relative size',
+  #            y ='Diff. glucose (mg/dl)') +
+  #       theme(plot.title = element_text(hjust = 0.5)) + # center title
+  #       theme(axis.ticks = element_blank()) + # remove axis ticks
+  #       theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+  #       # remove background color
+  #       theme(panel.background = element_rect(fill = 'white')) +
+  #       # customize legend
+  #       theme(legend.title=element_text(size=10),
+  #             legend.text=element_text(size=8),
+  #             legend.position = c(0.91, 0.94))
+  #     
+  #   ## b) Print plot 
+  #     print(mid_gluc_size_box)
+  #     
+  #   ## c) Save plot
+  #     ggsave('mid_gluc_size_box.pdf', plot = mid_gluc_size_box, 
+  #            device = NULL, 
+  #            path = here('output/'), scale = 1, width = 8, 
+  #            height = 6, 
+  #            units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## d) Mid-development difference blood glucose by mid-development 
+    #   # mites (y/n) boxplot
+    #   mid_gluc_mite_box <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = mite.bin, y = gluc.diff, fill = mite.bin)) + 
+    #     geom_boxplot() + 
+    #     #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+    #     #geom_jitter(color="black", size=2, alpha=0.9) +
+    #     scale_color_manual(values=c('purple', 'dark green')) +
+    #     labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
+    #          mid-development mites (y/n)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## e) Print plot 
+    #   print(mid_gluc_mite_box)
+    #   
+    # ## f) Save plot
+    #   ggsave('mid_gluc_mite_box.pdf', plot = mid_gluc_mite_box, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)   
+    #   
+    # ## g) Mid-development difference blood glucose by mid-development nest age
+    #   mid_gluc_age_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = nestling.age, y = gluc.diff)) + 
+    #     geom_point() + 
+    #     labs(title = 'Mid-development difference in blood glucose (stressed - baseline) by 
+    #          mid-development nest age',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## h) Print plot 
+    #   print(mid_gluc_age_scatter)
+    #   
+    # ## i) Save plot
+    #   ggsave('mid_gluc_age_scatter.pdf', plot = mid_gluc_age_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
     
-    ## j) Mid-development difference blood glucose by mid-development 
-      # first blood sample  time (seconds)
-      mid_gluc_base_time_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = base.gluc.s, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development diff blood glucose (stress - baseline) by 
-             mid-development baseline blood sample time (s)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        # bold and size title and axes labels
-        theme(text = element_text(size=20, face = 'bold')) +
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # change axes font style, color, size, angle, margin, and legend
-        theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=20, angle=0,
-                                         margin = margin(t = 10, r = 0, 
-                                                         b = 10, l = 0)),
-              axis.text.y = element_text(face='bold', color='black', 
-                                         size=20, angle=0, 
-                                         margin = margin(t = 0, r = 0, 
-                                                         b = 0, l = 0)),
-              legend.title=element_blank(), #element_text(size=10)
-              legend.text=element_text(size=10),
-              legend.position = 'none', #c(0.91, 0.94),
-              legend.key = element_blank()) 
-        
-      
-    ## k) Print plot 
-      print(mid_gluc_base_time_scatter)
-      
-    ## l) Save plot
-      ggsave('mid_gluc_base_time_scatter.pdf', 
-             plot = mid_gluc_base_time_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## m) Mid-development difference in blood glucose by mid-development 
-      # temperature (C) at around sunrise (observation trial start time)
-      mid_gluc_temp_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = trial.temp, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development difference in blood glucose (stress - baseline) by 
-             mid-development trial temperature (C)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## n) Print plot 
-      print(mid_gluc_temp_scatter)
-      
-    ## o) Save plot
-      ggsave('mid_gluc_temp_scatter.pdf', 
-             plot = mid_gluc_temp_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## p) Mid-development difference in blood glucose by mid-development 
-      # number of nestlings in the nest
-      mid_gluc_nos_nest_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = nestling.number, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development difference in blood glucose (stress - baseline) by 
-             mid-development number of nestlings',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## q) Print plot 
-      print(mid_gluc_nos_nest_scatter)
-      
-    ## r) Save plot
-      ggsave('mid_gluc_nos_nest_scatter.pdf', 
-             plot = mid_gluc_nos_nest_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-      
-  ### 5.3 Bivariate graphs for mid-development (~day 8) blood glucose baseline.  
-    ## a) Mid-development baseline blood glucose by mid-development 
-      # relative nestling size boxplot
-      mid_base_gluc_size_box <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = rt.wing.length, y = base.gluc, fill = size.order)) + 
-        geom_boxplot() + 
-        scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        geom_jitter(color="black", size=2, alpha=0.9) +
-        # scale_color_manual(values=c('#69b3a2', '#404080'), 
-        #                    name = 'smallest vs other nestlings',
-        #                    labels = c('small', 'other')) +
-        labs(title = 'Mid-development baseline blood glucose by mid-development relative size',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## b) Print plot 
-      print(mid_base_gluc_size_box)
-      
-    ## c) Save plot
-      ggsave('mid_base_gluc_size_box.pdf', plot = mid_base_gluc_size_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## d) Mid-development baseline blood glucose by mid-development
-      # mites (y/n) boxplot
-      mid_base_gluc_mite_box <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = mite.bin, y = base.gluc, fill = mite.bin)) + 
-        geom_boxplot() + 
-        #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        #geom_jitter(color="black", size=2, alpha=0.9) +
-        scale_color_manual(values=c('purple', 'dark green')) +
-        labs(title = 'Mid-development baseline blood glucose by 
-             mid-development mites (y/n)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## e) Print plot 
-      print(mid_base_gluc_mite_box)
-      
-    ## f) Save plot
-      ggsave('mid_base_gluc_mite_box.pdf', plot = mid_base_gluc_mite_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)   
-      
-    ## g) Mid-development baseline blood glucose by mid-development nest age
-      mid_base_gluc_age_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = nestling.age, y = base.gluc)) + 
-        geom_point() + 
-        labs(title = 'Mid-development baseline blood glucose by 
-             mid-development nest age',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## h) Print plot 
-      print(mid_base_gluc_age_scatter)
-      
-    ## i) Save plot
-      ggsave('mid_base_gluc_age_scatter.pdf', plot = mid_base_gluc_age_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## j) Mid-development baseline blood glucose by mid-development baseline
-      # blood sample time (seconds)
-      mid_base_gluc_blood_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = base.gluc.s, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development baseline blood glucose by 
-             mid-development baseline blood sample time (s)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## k) Print plot 
-      print(mid_base_gluc_blood_scatter)
-      
-    ## l) Save plot
-      ggsave('mid_base_gluc_blood_scatter.pdf', 
-             plot = mid_base_gluc_blood_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## m) Mid-development baseline glucose by mid-development 
-      # temperature (C) at around sunrise (observation trial start time)
-      mid_base_gluc_temp_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = trial.temp, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development baseline blood glucose by 
-             mid-development trial temperature (C)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## n) Print plot 
-      print(mid_base_gluc_temp_scatter)
-      
-    ## o) Save plot
-      ggsave('mid_base_gluc_temp_scatter.pdf', 
-             plot = mid_base_gluc_temp_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## p) Mid-development baseline blood glucose by mid-development 
-      # number of nestlings in the nest
-      mid_base_gluc_nos_nest_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'mid') %>%
-        ggplot(aes(x = nestling.number, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Mid-development baseline blood glucose by 
-             mid-development number of nestlings',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## q) Print plot 
-      print(mid_base_gluc_nos_nest_scatter)
-      
-    ## r) Save plot
-      ggsave('mid_base_gluc_nos_nest_scatter.pdf', 
-             plot = mid_base_gluc_nos_nest_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-      
-  ### 5.4 Bivariate graphs for late development (~day 12) blood glucose diffs.
-    ## a) Late development difference blood glucose by late development
-      # relative nestling size boxplot
-      late_gluc_late_size_box <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = rt.wing.length, y = gluc.diff, fill = size.order)) +
-        geom_boxplot() +
-        scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        geom_jitter(color="black", size=2, alpha=0.9) +
-        # scale_color_manual(values=c('#69b3a2', '#404080'),
-        #                    name = 'smallest vs other nestlings',
-        #                    labels = c('small', 'other')) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by
-             late development relative size',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-
-    ## b) Print plot
-      print(late_gluc_late_size_box)
-
-    ## c) Save plot
-      ggsave('late_gluc_late_size_box.pdf', plot = late_gluc_late_size_box,
-             device = NULL,
-             path = here('output/'), scale = 1, width = 8,
-             height = 6,
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## d) Late development difference blood glucose by late development 
-      # first blood sample time (seconds)
-      late_gluc_late_base_blood_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = base.gluc.s, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             late development baseline blood sample time (s)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## e) Print plot 
-      print(late_gluc_late_base_blood_scatter)
-      
-    ## f) Save plot
-      ggsave('late_gluc_late_base_blood_scatter.pdf', 
-             plot = late_gluc_late_base_blood_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## g) Late development difference blood glucose by late development 
-      # mites (y/n) boxplot
-      late_gluc_late_mite_box <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = mite.bin, y = gluc.diff, fill = mite.bin)) + 
-        geom_boxplot() + 
-        #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        #geom_jitter(color="black", size=2, alpha=0.9) +
-        scale_color_manual(values=c('purple', 'dark green')) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             late development mite (y/n)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## h) Print plot 
-      print(late_gluc_late_mite_box)
-      
-    ## i) Save plot
-      ggsave('late_gluc_late_mite_box.pdf', plot = late_gluc_late_mite_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)   
-      
-    
-      
-    ## j) Late development difference blood glucose by late development
-      # right wing length
-      late_gluc_late_wing_scatter <- late_nestling_size %>%
-        ggplot(aes(x = late.rt.wing.length, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             late development right wing length ',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## k) Print plot 
-      print(late_gluc_late_wing_scatter)
-      
-    ## l) Save plot
-      ggsave('late_gluc_late_wing_scatter.pdf', 
-             plot = late_gluc_late_wing_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## m) Late development difference blood glucose by mid-development 
-      # right wing length
-      late_gluc_mid_wing_scatter <- late_nestling_size %>%
-        ggplot(aes(x = mid.rt.wing.length, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             mid-development right wing length',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## n) Print plot 
-      print(late_gluc_mid_wing_scatter)
-      
-    ## o) Save plot
-      ggsave('late_gluc_mid_wing_scatter.pdf', 
-             plot = late_gluc_mid_wing_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## p) Late development difference blood glucose by difference (late - mid)  
-      # right wing length
-      late_gluc_wing_diff_scatter <- late_nestling_size %>%
-        ggplot(aes(x = rt.wing.diff, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             difference (late - mid) in right wing length',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## q) Print plot 
-      print(late_gluc_wing_diff_scatter)
-      
-    ## r) Save plot
-      ggsave('late_gluc_wing_diff_scatter.pdf', 
-             plot = late_gluc_wing_diff_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## s) Late development difference blood glucose by late 
-      # development nest age
-      late_gluc_late_age_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = nestling.age, y = gluc.diff)) + 
-        geom_point() + 
-        labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
-             late development nest age',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## t) Print plot 
-      print(late_gluc_late_age_scatter)
-      
-    ## u) Save plot
-      ggsave('late_gluc_late_age_scatter.pdf', 
-             plot = late_gluc_late_age_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## v) Late development difference in glucose (stress - baseline) by 
-      # late development temperature (C) at around sunrise (obs start time)
-      late_gluc_late_temp_scatter <-  nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = trial.temp, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stress - baseline) by 
-             late development trial temperature (C)',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## w) Print plot 
-      print(late_gluc_late_temp_scatter)
-      
-    ## x) Save plot
-      ggsave('late_gluc_late_temp_scatter.pdf', 
-             plot = late_gluc_late_temp_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## y) Late development difference in blood glucose by late development 
-      # number of nestlings in the nest
-      late_gluc_nos_nest_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = nestling.number, y = gluc.diff)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development difference in blood glucose (stress-baseline) by
-             late development number of nestlings',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## z) Print plot 
-      print(late_gluc_nos_nest_scatter)
-      
-    ## a) Save plot
-      ggsave('late_gluc_nos_nest_scatter.pdf', 
-             plot = late_gluc_nos_nest_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-      
-  ### 5.5 Bivariate graphs for late development (~day 12) blood glucose baseline
-    ## a) Late development baseline blood glucose by late development
-      # relative nestling size boxplot
-      late_base_gluc_late_indx_box <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = rt.wing.length, y = base.gluc, fill = size.order)) +
-        geom_boxplot() +
-        scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        geom_jitter(color="black", size=2, alpha=0.9) +
-        # scale_color_manual(values=c('#69b3a2', '#404080'),
-        #                    name = 'smallest vs other nestlings',
-        #                    labels = c('small', 'other')) +
-        labs(title = 'Late development baseline glucose by
-             late development relative size',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-
-    ## b) Print plot
-      print(late_base_gluc_late_indx_box)
-
-    ## c) Save plot
-      ggsave('llate_base_gluc_late_indx_box.pdf',
-             plot = late_base_gluc_late_indx_box,
-             device = NULL,
-             path = here('output/'), scale = 1, width = 8,
-             height = 6,
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## d) Late development baseline blood glucose by late development 
-      # first blood sample time (seconds)
-      late_base_gluc_late_base_time_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = base.gluc.s, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline blood glucose by baseline blood sample time (s)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## e) Print plot 
-      print(late_base_gluc_late_base_time_scatter)
-      
-    ## f) Save plot
-      ggsave('late_base_gluc_late_base_time_scatter.pdf', 
-             plot = late_base_gluc_late_base_time_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## g) Late development baseline blood glucose by late development 
-      # mites (y/n) boxplot
-      late_base_gluc_late_mite_box <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = mite.bin, y = base.gluc, fill = mite.bin)) + 
-        geom_boxplot() + 
-        #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-        #geom_jitter(color="black", size=2, alpha=0.9) +
-        scale_color_manual(values=c('purple', 'dark green')) +
-        labs(title = 'Late development baseline blood glucose by late development mite (y/n)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## h) Print plot 
-      print(late_base_gluc_late_mite_box)
-      
-    ## i) Save plot
-      ggsave('late_base_gluc_late_mite_box.pdf', plot = late_base_gluc_late_mite_box, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)   
-      
-    ## j) Late development baseline blood glucose by late development
-      # right wing length
-      late_base_gluc_late_wing_scatter <- late_nestling_size %>%
-        ggplot(aes(x = late.rt.wing.length, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline blood glucose by 
-             late development right wing length',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## k) Print plot 
-      print(late_base_gluc_late_wing_scatter)
-      
-    ## l) Save plot
-      ggsave('late_base_gluc_late_wing_scatter.pdf', 
-             plot = late_base_gluc_late_wing_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## m) Late development baseline blood glucose by mid-development 
-      # right wing length
-      late_base_gluc_mid_wing_scatter <- late_nestling_size %>%
-        ggplot(aes(x = mid.rt.wing.length, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline blood glucose by 
-             mid-development right wing length',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## n) Print plot 
-      print(late_base_gluc_mid_wing_scatter)
-      
-    ## o) Save plot
-      ggsave('late_base_gluc_mid_wing_scatter.pdf', 
-             plot = late_base_gluc_mid_wing_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## p) Late development baseline blood glucose by difference (late - mid)  
-      # right wing length
-      late_base_gluc_wing_diff_scatter <- late_nestling_size %>%
-        ggplot(aes(x = rt.wing.diff, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline blood glucose by 
-             difference (late - mid) right wing lenght',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## q) Print plot 
-      print(late_base_gluc_wing_diff_scatter)
-      
-    ## r) Save plot
-      ggsave('late_base_gluc_wing_diff_scatter.pdf', 
-             plot = late_base_gluc_wing_diff_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE) 
-      
-    ## s) Late development baseline blood glucose by late development nest age
-      late_base_gluc_late_age_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = nestling.age, y = base.gluc)) + 
-        geom_point() + 
-        labs(title = 'Late development baseline blood glucose by 
-             late development nest age',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## t) Print plot 
-      print(late_base_gluc_late_age_scatter)
-      
-    ## u) Save plot
-      ggsave('late_base_gluc_late_age_scatter.pdf', 
-             plot = late_base_gluc_late_age_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-    ## v) Late development baseline glucose by mid-development 
-      # temperature (C) at around sunrise (observation trial start time)
-      late_base_gluc_late_temp_scatter <-  nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = trial.temp, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline blood glucose by 
-             late development trial temperature (C)',
-             y ='Baseline glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## w) Print plot 
-      print(late_base_gluc_late_temp_scatter)
-      
-    ## x) Save plot
-      ggsave('late_base_gluc_late_temp_scatter.pdf', 
-             plot = late_base_gluc_late_temp_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
-      
-    ## y) Late development baseline glucose by late development 
-      # number of nestlings in the nest
-      late_base_gluc_nos_nest_scatter <- nestling_parent_care %>%
-        filter(sample.state == 'late') %>%
-        ggplot(aes(x = nestling.number, y = base.gluc)) + 
-        geom_point() +
-        geom_smooth(method = "loess", size = 1.5) +
-        labs(title = 'Late development baseline glucoces by
-             late development number of nestlings',
-             y ='Diff. glucose (mg/dl)') +
-        theme(plot.title = element_text(hjust = 0.5)) + # center title
-        theme(axis.ticks = element_blank()) + # remove axis ticks
-        theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
-        # remove background color
-        theme(panel.background = element_rect(fill = 'white')) +
-        # customize legend
-        theme(legend.title=element_text(size=10),
-              legend.text=element_text(size=8),
-              legend.position = c(0.91, 0.94))
-      
-    ## z) Print plot 
-      print(late_base_gluc_nos_nest_scatter)
-      
-    ## aa) Save plot
-      ggsave('late_base_gluc_nos_nest_scatter.pdf', 
-             plot = late_base_gluc_nos_nest_scatter, 
-             device = NULL, 
-             path = here('output/'), scale = 1, width = 8, 
-             height = 6, 
-             units = c('in'), dpi = 300, limitsize = TRUE)
-      
+    # ## j) Mid-development difference blood glucose by mid-development 
+    #   # first blood sample  time (seconds)
+    #   mid_gluc_base_time_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = base.gluc.s, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development diff blood glucose (stress - baseline) by 
+    #          mid-development baseline blood sample time (s)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     # bold and size title and axes labels
+    #     theme(text = element_text(size=20, face = 'bold')) +
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # change axes font style, color, size, angle, margin, and legend
+    #     theme(axis.text.x = element_text(face='bold', color='black', 
+    #                                      size=20, angle=0,
+    #                                      margin = margin(t = 10, r = 0, 
+    #                                                      b = 10, l = 0)),
+    #           axis.text.y = element_text(face='bold', color='black', 
+    #                                      size=20, angle=0, 
+    #                                      margin = margin(t = 0, r = 0, 
+    #                                                      b = 0, l = 0)),
+    #           legend.title=element_blank(), #element_text(size=10)
+    #           legend.text=element_text(size=10),
+    #           legend.position = 'none', #c(0.91, 0.94),
+    #           legend.key = element_blank()) 
+    #     
+    #   
+    # ## k) Print plot 
+    #   print(mid_gluc_base_time_scatter)
+    #   
+    # ## l) Save plot
+    #   ggsave('mid_gluc_base_time_scatter.pdf', 
+    #          plot = mid_gluc_base_time_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## m) Mid-development difference in blood glucose by mid-development 
+    #   # temperature (C) at around sunrise (observation trial start time)
+    #   mid_gluc_temp_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = trial.temp, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development difference in blood glucose (stress - baseline) by 
+    #          mid-development trial temperature (C)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## n) Print plot 
+    #   print(mid_gluc_temp_scatter)
+    #   
+    # ## o) Save plot
+    #   ggsave('mid_gluc_temp_scatter.pdf', 
+    #          plot = mid_gluc_temp_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## p) Mid-development difference in blood glucose by mid-development 
+    #   # number of nestlings in the nest
+    #   mid_gluc_nos_nest_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = nestling.number, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development difference in blood glucose (stress - baseline) by 
+    #          mid-development number of nestlings',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## q) Print plot 
+    #   print(mid_gluc_nos_nest_scatter)
+    #   
+    # ## r) Save plot
+    #   ggsave('mid_gluc_nos_nest_scatter.pdf', 
+    #          plot = mid_gluc_nos_nest_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    #   
+  # ### 5.3 Bivariate graphs for mid-development (~day 8) blood glucose baseline.  
+  #   ## a) Mid-development baseline blood glucose by mid-development 
+  #     # relative nestling size boxplot
+  #     mid_base_gluc_size_box <- nestling_parent_care %>%
+  #       filter(sample.state == 'mid') %>%
+  #       ggplot(aes(x = rt.wing.length, y = base.gluc, fill = size.order)) + 
+  #       geom_boxplot() + 
+  #       scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  #       geom_jitter(color="black", size=2, alpha=0.9) +
+  #       # scale_color_manual(values=c('#69b3a2', '#404080'), 
+  #       #                    name = 'smallest vs other nestlings',
+  #       #                    labels = c('small', 'other')) +
+  #       labs(title = 'Mid-development baseline blood glucose by mid-development relative size',
+  #            y ='Baseline glucose (mg/dl)') +
+  #       theme(plot.title = element_text(hjust = 0.5)) + # center title
+  #       theme(axis.ticks = element_blank()) + # remove axis ticks
+  #       theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+  #       # remove background color
+  #       theme(panel.background = element_rect(fill = 'white')) +
+  #       # customize legend
+  #       theme(legend.title=element_text(size=10),
+  #             legend.text=element_text(size=8),
+  #             legend.position = c(0.91, 0.94))
+  #     
+  #   ## b) Print plot 
+  #     print(mid_base_gluc_size_box)
+  #     
+  #   ## c) Save plot
+  #     ggsave('mid_base_gluc_size_box.pdf', plot = mid_base_gluc_size_box, 
+  #            device = NULL, 
+  #            path = here('output/'), scale = 1, width = 8, 
+  #            height = 6, 
+  #            units = c('in'), dpi = 300, limitsize = TRUE) 
+  #     
+    # ## d) Mid-development baseline blood glucose by mid-development
+    #   # mites (y/n) boxplot
+    #   mid_base_gluc_mite_box <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = mite.bin, y = base.gluc, fill = mite.bin)) + 
+    #     geom_boxplot() + 
+    #     #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+    #     #geom_jitter(color="black", size=2, alpha=0.9) +
+    #     scale_color_manual(values=c('purple', 'dark green')) +
+    #     labs(title = 'Mid-development baseline blood glucose by 
+    #          mid-development mites (y/n)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## e) Print plot 
+    #   print(mid_base_gluc_mite_box)
+    #   
+    # ## f) Save plot
+    #   ggsave('mid_base_gluc_mite_box.pdf', plot = mid_base_gluc_mite_box, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)   
+    #   
+    # ## g) Mid-development baseline blood glucose by mid-development nest age
+    #   mid_base_gluc_age_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = nestling.age, y = base.gluc)) + 
+    #     geom_point() + 
+    #     labs(title = 'Mid-development baseline blood glucose by 
+    #          mid-development nest age',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## h) Print plot 
+    #   print(mid_base_gluc_age_scatter)
+    #   
+    # ## i) Save plot
+    #   ggsave('mid_base_gluc_age_scatter.pdf', plot = mid_base_gluc_age_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## j) Mid-development baseline blood glucose by mid-development baseline
+    #   # blood sample time (seconds)
+    #   mid_base_gluc_blood_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = base.gluc.s, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development baseline blood glucose by 
+    #          mid-development baseline blood sample time (s)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## k) Print plot 
+    #   print(mid_base_gluc_blood_scatter)
+    #   
+    # ## l) Save plot
+    #   ggsave('mid_base_gluc_blood_scatter.pdf', 
+    #          plot = mid_base_gluc_blood_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## m) Mid-development baseline glucose by mid-development 
+    #   # temperature (C) at around sunrise (observation trial start time)
+    #   mid_base_gluc_temp_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = trial.temp, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development baseline blood glucose by 
+    #          mid-development trial temperature (C)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## n) Print plot 
+    #   print(mid_base_gluc_temp_scatter)
+    #   
+    # ## o) Save plot
+    #   ggsave('mid_base_gluc_temp_scatter.pdf', 
+    #          plot = mid_base_gluc_temp_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## p) Mid-development baseline blood glucose by mid-development 
+    #   # number of nestlings in the nest
+    #   mid_base_gluc_nos_nest_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'mid') %>%
+    #     ggplot(aes(x = nestling.number, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Mid-development baseline blood glucose by 
+    #          mid-development number of nestlings',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## q) Print plot 
+    #   print(mid_base_gluc_nos_nest_scatter)
+    #   
+    # ## r) Save plot
+    #   ggsave('mid_base_gluc_nos_nest_scatter.pdf', 
+    #          plot = mid_base_gluc_nos_nest_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    #   
+  # ### 5.4 Bivariate graphs for late development (~day 12) blood glucose diffs.
+  #   ## a) Late development difference blood glucose by late development
+  #     # relative nestling size boxplot
+  #     late_gluc_late_size_box <- nestling_parent_care %>%
+  #       filter(sample.state == 'late') %>%
+  #       ggplot(aes(x = rt.wing.length, y = gluc.diff, fill = size.order)) +
+  #       geom_boxplot() +
+  #       scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  #       geom_jitter(color="black", size=2, alpha=0.9) +
+  #       # scale_color_manual(values=c('#69b3a2', '#404080'),
+  #       #                    name = 'smallest vs other nestlings',
+  #       #                    labels = c('small', 'other')) +
+  #       labs(title = 'Late development difference in blood glucose (stressed - baseline) by
+  #            late development relative size',
+  #            y ='Diff. glucose (mg/dl)') +
+  #       theme(plot.title = element_text(hjust = 0.5)) + # center title
+  #       theme(axis.ticks = element_blank()) + # remove axis ticks
+  #       theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+  #       # remove background color
+  #       theme(panel.background = element_rect(fill = 'white')) +
+  #       # customize legend
+  #       theme(legend.title=element_text(size=10),
+  #             legend.text=element_text(size=8),
+  #             legend.position = c(0.91, 0.94))
+  # 
+  #   ## b) Print plot
+  #     print(late_gluc_late_size_box)
+  # 
+  #   ## c) Save plot
+  #     ggsave('late_gluc_late_size_box.pdf', plot = late_gluc_late_size_box,
+  #            device = NULL,
+  #            path = here('output/'), scale = 1, width = 8,
+  #            height = 6,
+  #            units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## d) Late development difference blood glucose by late development 
+    #   # first blood sample time (seconds)
+    #   late_gluc_late_base_blood_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = base.gluc.s, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          late development baseline blood sample time (s)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## e) Print plot 
+    #   print(late_gluc_late_base_blood_scatter)
+    #   
+    # ## f) Save plot
+    #   ggsave('late_gluc_late_base_blood_scatter.pdf', 
+    #          plot = late_gluc_late_base_blood_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## g) Late development difference blood glucose by late development 
+    #   # mites (y/n) boxplot
+    #   late_gluc_late_mite_box <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = mite.bin, y = gluc.diff, fill = mite.bin)) + 
+    #     geom_boxplot() + 
+    #     #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+    #     #geom_jitter(color="black", size=2, alpha=0.9) +
+    #     scale_color_manual(values=c('purple', 'dark green')) +
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          late development mite (y/n)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## h) Print plot 
+    #   print(late_gluc_late_mite_box)
+    #   
+    # ## i) Save plot
+    #   ggsave('late_gluc_late_mite_box.pdf', plot = late_gluc_late_mite_box, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)   
+    #   
+    # ## j) Late development difference blood glucose by late development
+    #   # right wing length
+    #   late_gluc_late_wing_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = late.rt.wing.length, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          late development right wing length ',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## k) Print plot 
+    #   print(late_gluc_late_wing_scatter)
+    #   
+    # ## l) Save plot
+    #   ggsave('late_gluc_late_wing_scatter.pdf', 
+    #          plot = late_gluc_late_wing_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## m) Late development difference blood glucose by mid-development 
+    #   # right wing length
+    #   late_gluc_mid_wing_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = mid.rt.wing.length, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          mid-development right wing length',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## n) Print plot 
+    #   print(late_gluc_mid_wing_scatter)
+    #   
+    # ## o) Save plot
+    #   ggsave('late_gluc_mid_wing_scatter.pdf', 
+    #          plot = late_gluc_mid_wing_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## p) Late development difference blood glucose by difference (late - mid)  
+    #   # right wing length
+    #   late_gluc_wing_diff_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = rt.wing.diff, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          difference (late - mid) in right wing length',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## q) Print plot 
+    #   print(late_gluc_wing_diff_scatter)
+    #   
+    # ## r) Save plot
+    #   ggsave('late_gluc_wing_diff_scatter.pdf', 
+    #          plot = late_gluc_wing_diff_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## s) Late development difference blood glucose by late 
+    #   # development nest age
+    #   late_gluc_late_age_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = nestling.age, y = gluc.diff)) + 
+    #     geom_point() + 
+    #     labs(title = 'Late development difference in blood glucose (stressed - baseline) by 
+    #          late development nest age',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## t) Print plot 
+    #   print(late_gluc_late_age_scatter)
+    #   
+    # ## u) Save plot
+    #   ggsave('late_gluc_late_age_scatter.pdf', 
+    #          plot = late_gluc_late_age_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## v) Late development difference in glucose (stress - baseline) by 
+    #   # late development temperature (C) at around sunrise (obs start time)
+    #   late_gluc_late_temp_scatter <-  nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = trial.temp, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stress - baseline) by 
+    #          late development trial temperature (C)',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## w) Print plot 
+    #   print(late_gluc_late_temp_scatter)
+    #   
+    # ## x) Save plot
+    #   ggsave('late_gluc_late_temp_scatter.pdf', 
+    #          plot = late_gluc_late_temp_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## y) Late development difference in blood glucose by late development 
+    #   # number of nestlings in the nest
+    #   late_gluc_nos_nest_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = nestling.number, y = gluc.diff)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development difference in blood glucose (stress-baseline) by
+    #          late development number of nestlings',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## z) Print plot 
+    #   print(late_gluc_nos_nest_scatter)
+    #   
+    # ## a) Save plot
+    #   ggsave('late_gluc_nos_nest_scatter.pdf', 
+    #          plot = late_gluc_nos_nest_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    #   
+  # ### 5.5 Bivariate graphs for late development (~day 12) blood glucose baseline
+  #   ## a) Late development baseline blood glucose by late development
+  #     # relative nestling size boxplot
+  #     late_base_gluc_late_indx_box <- nestling_parent_care %>%
+  #       filter(sample.state == 'late') %>%
+  #       ggplot(aes(x = rt.wing.length, y = base.gluc, fill = size.order)) +
+  #       geom_boxplot() +
+  #       scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  #       geom_jitter(color="black", size=2, alpha=0.9) +
+  #       # scale_color_manual(values=c('#69b3a2', '#404080'),
+  #       #                    name = 'smallest vs other nestlings',
+  #       #                    labels = c('small', 'other')) +
+  #       labs(title = 'Late development baseline glucose by
+  #            late development relative size',
+  #            y ='Baseline glucose (mg/dl)') +
+  #       theme(plot.title = element_text(hjust = 0.5)) + # center title
+  #       theme(axis.ticks = element_blank()) + # remove axis ticks
+  #       theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+  #       # remove background color
+  #       theme(panel.background = element_rect(fill = 'white')) +
+  #       # customize legend
+  #       theme(legend.title=element_text(size=10),
+  #             legend.text=element_text(size=8),
+  #             legend.position = c(0.91, 0.94))
+  # 
+  #   ## b) Print plot
+  #     print(late_base_gluc_late_indx_box)
+  # 
+  #   ## c) Save plot
+  #     ggsave('llate_base_gluc_late_indx_box.pdf',
+  #            plot = late_base_gluc_late_indx_box,
+  #            device = NULL,
+  #            path = here('output/'), scale = 1, width = 8,
+  #            height = 6,
+  #            units = c('in'), dpi = 300, limitsize = TRUE)
+  #     
+    # ## d) Late development baseline blood glucose by late development 
+    #   # first blood sample time (seconds)
+    #   late_base_gluc_late_base_time_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = base.gluc.s, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline blood glucose by baseline blood sample time (s)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## e) Print plot 
+    #   print(late_base_gluc_late_base_time_scatter)
+    #   
+    # ## f) Save plot
+    #   ggsave('late_base_gluc_late_base_time_scatter.pdf', 
+    #          plot = late_base_gluc_late_base_time_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## g) Late development baseline blood glucose by late development 
+    #   # mites (y/n) boxplot
+    #   late_base_gluc_late_mite_box <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = mite.bin, y = base.gluc, fill = mite.bin)) + 
+    #     geom_boxplot() + 
+    #     #scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+    #     #geom_jitter(color="black", size=2, alpha=0.9) +
+    #     scale_color_manual(values=c('purple', 'dark green')) +
+    #     labs(title = 'Late development baseline blood glucose by late development mite (y/n)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## h) Print plot 
+    #   print(late_base_gluc_late_mite_box)
+    #   
+    # ## i) Save plot
+    #   ggsave('late_base_gluc_late_mite_box.pdf', plot = late_base_gluc_late_mite_box, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)   
+    #   
+    # ## j) Late development baseline blood glucose by late development
+    #   # right wing length
+    #   late_base_gluc_late_wing_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = late.rt.wing.length, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline blood glucose by 
+    #          late development right wing length',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## k) Print plot 
+    #   print(late_base_gluc_late_wing_scatter)
+    #   
+    # ## l) Save plot
+    #   ggsave('late_base_gluc_late_wing_scatter.pdf', 
+    #          plot = late_base_gluc_late_wing_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## m) Late development baseline blood glucose by mid-development 
+    #   # right wing length
+    #   late_base_gluc_mid_wing_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = mid.rt.wing.length, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline blood glucose by 
+    #          mid-development right wing length',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## n) Print plot 
+    #   print(late_base_gluc_mid_wing_scatter)
+    #   
+    # ## o) Save plot
+    #   ggsave('late_base_gluc_mid_wing_scatter.pdf', 
+    #          plot = late_base_gluc_mid_wing_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## p) Late development baseline blood glucose by difference (late - mid)  
+    #   # right wing length
+    #   late_base_gluc_wing_diff_scatter <- late_nestling_size %>%
+    #     ggplot(aes(x = rt.wing.diff, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline blood glucose by 
+    #          difference (late - mid) right wing lenght',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## q) Print plot 
+    #   print(late_base_gluc_wing_diff_scatter)
+    #   
+    # ## r) Save plot
+    #   ggsave('late_base_gluc_wing_diff_scatter.pdf', 
+    #          plot = late_base_gluc_wing_diff_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE) 
+    #   
+    # ## s) Late development baseline blood glucose by late development nest age
+    #   late_base_gluc_late_age_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = nestling.age, y = base.gluc)) + 
+    #     geom_point() + 
+    #     labs(title = 'Late development baseline blood glucose by 
+    #          late development nest age',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## t) Print plot 
+    #   print(late_base_gluc_late_age_scatter)
+    #   
+    # ## u) Save plot
+    #   ggsave('late_base_gluc_late_age_scatter.pdf', 
+    #          plot = late_base_gluc_late_age_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## v) Late development baseline glucose by mid-development 
+    #   # temperature (C) at around sunrise (observation trial start time)
+    #   late_base_gluc_late_temp_scatter <-  nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = trial.temp, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline blood glucose by 
+    #          late development trial temperature (C)',
+    #          y ='Baseline glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## w) Print plot 
+    #   print(late_base_gluc_late_temp_scatter)
+    #   
+    # ## x) Save plot
+    #   ggsave('late_base_gluc_late_temp_scatter.pdf', 
+    #          plot = late_base_gluc_late_temp_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
+    # ## y) Late development baseline glucose by late development 
+    #   # number of nestlings in the nest
+    #   late_base_gluc_nos_nest_scatter <- nestling_parent_care %>%
+    #     filter(sample.state == 'late') %>%
+    #     ggplot(aes(x = nestling.number, y = base.gluc)) + 
+    #     geom_point() +
+    #     geom_smooth(method = "loess", size = 1.5) +
+    #     labs(title = 'Late development baseline glucoces by
+    #          late development number of nestlings',
+    #          y ='Diff. glucose (mg/dl)') +
+    #     theme(plot.title = element_text(hjust = 0.5)) + # center title
+    #     theme(axis.ticks = element_blank()) + # remove axis ticks
+    #     theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1)) +
+    #     # remove background color
+    #     theme(panel.background = element_rect(fill = 'white')) +
+    #     # customize legend
+    #     theme(legend.title=element_text(size=10),
+    #           legend.text=element_text(size=8),
+    #           legend.position = c(0.91, 0.94))
+    #   
+    # ## z) Print plot 
+    #   print(late_base_gluc_nos_nest_scatter)
+    #   
+    # ## aa) Save plot
+    #   ggsave('late_base_gluc_nos_nest_scatter.pdf', 
+    #          plot = late_base_gluc_nos_nest_scatter, 
+    #          device = NULL, 
+    #          path = here('output/'), scale = 1, width = 8, 
+    #          height = 6, 
+    #          units = c('in'), dpi = 300, limitsize = TRUE)
+    #   
       
   
 ###############################################################################

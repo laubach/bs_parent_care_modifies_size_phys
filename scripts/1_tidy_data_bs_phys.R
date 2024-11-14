@@ -6,12 +6,11 @@
 #############                                                     #############
 #############                  By: Zach Laubach                   #############
 #############                created: 11 May 2022                 #############
-#############              last updated: 22 Aug 2024              #############
+#############              last updated: 11 Nov 2024              #############
 ###############################################################################
 
 
-### PURPOSE: Tidy and join data in preparation for downstream analyses of
-            # data
+  ### PURPOSE: Tidy and join data in preparation for downstream analyses 
   
   
   # Code Blocks
@@ -30,12 +29,9 @@
     ## a) clear global environment
       rm(list = ls())
 
-    ## b) prevent R from automatically reading charater strins as factors
+    ## b) prevent R from automatically reading character strings as factors
       options(stringsAsFactors = FALSE)
       
-    ## c) Setup packrat for reproducibility
-      #library('packrat')
-      #packrat::init('.') #initiate packrat in the current working directory
   
 
   ### 1.2 Install and load CRAN packages
@@ -56,9 +52,9 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.2.3 (2023-03-15)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS 14.2.1
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
     
   
   ### 1.4 Set working directory 
@@ -67,7 +63,7 @@
     
   ### 1.5 Source functions
     ## a) Source scripts path
-      source_path <- paste("~/WD/Git/source_code/")
+      source_path <- paste(here('scripts/'))
     
     ## b) all_char_to_lower function
       source(file = paste0(source_path, "all_char_to_lower.R"))

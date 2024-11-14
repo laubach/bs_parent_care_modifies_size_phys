@@ -6,7 +6,7 @@
 #############               parental care behaviors               #############
 #############                  By: Zach Laubach                   #############
 #############                created: 10 June 2022                #############
-#############             last updated: 23 Sept 2024              #############
+#############              last updated: 13 Nov 2024              #############
 ###############################################################################
 
 
@@ -51,12 +51,12 @@
     # load ggeffects packages
       library('ggeffects')
       
-      library('hrbrthemes')
-      
-      library('viridis')
-      
-      # load gridExtra packages
-      library('gridExtra')
+      # library('hrbrthemes')
+      # 
+      # library('viridis')
+      # 
+      # # load gridExtra packages
+      # library('gridExtra')
       
     ## c) Modeling Packages
       # load lme4 packages
@@ -88,11 +88,11 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.0.2 (2020-06-22)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS Catalina 10.16
-    
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
   
+    
   ### 1.4 Set working directory 
     setwd(here())
   
@@ -147,7 +147,7 @@
   ### 3.2 Late dev. baseline glucose by growth by parental care (feed)
       # interaction models
 
-    ## a) Late dev. difference in glucose by late dev.
+    ## a) Late dev. baseline glucose by late dev.
       # growth x feed.indx
       base.gluc.grow.x.care.lmm <- lmerTest::lmer(base.gluc ~ scale(rt.wing.diff) *
                                           feed.indx +
@@ -375,8 +375,8 @@
              plot = base.gluc.by.wing.by.care.strat.pred.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 7,
-             height = 6,
+             scale = 1, width = 6.5,
+             height = 7,
              units = c('in'), dpi = 300, limitsize = TRUE)   
       
       
@@ -505,8 +505,8 @@
              plot = base.gluc.by.grow.by.care.strat.pred.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 7,
-             height = 6,
+             scale = 1, width = 6.5,
+             height = 7,
              units = c('in'), dpi = 300, limitsize = TRUE)           
       
       
@@ -634,8 +634,8 @@
              plot = gluc.diff.by.wing.by.care.strat.pred.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 7,
-             height = 6,
+             scale = 1, width = 6.5,
+             height = 7,
              units = c('in'), dpi = 300, limitsize = TRUE)           
       
       
@@ -761,8 +761,8 @@
              plot = gluc.diff.by.grow.by.care.strat.pred.plot, 
              device = NULL,
              path = paste0(here(),'/output'), 
-             scale = 1, width = 7,
-             height = 6,
+             scale = 1, width = 6.5,
+             height = 7,
              units = c('in'), dpi = 300, limitsize = TRUE)      
       
       

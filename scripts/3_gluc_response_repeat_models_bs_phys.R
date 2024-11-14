@@ -7,7 +7,7 @@
 #############                                                     #############
 #############                  By: Zach Laubach                   #############
 #############                created: 23 May 2022                 #############
-#############              last updated: 19 Sept 2024               #############
+#############              last updated: 11 Nov 2024              #############
 ###############################################################################
 
 
@@ -48,9 +48,9 @@
       # load ggplot2 packages
         library ('ggplot2')
       
-        library('hrbrthemes')
-  
-        library('viridis')
+        # library('hrbrthemes')
+        # 
+        # library('viridis')
 
       # load gridExtra packages
         library('gridExtra')
@@ -90,10 +90,10 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.2.3 (2023-03-15)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS 14.2.1
-    
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
+      
   
   ### 1.4 Set working directory 
     setwd(here())
@@ -105,7 +105,7 @@
 ###############################################################################  
   
   ### 2.1 Load RData
-    ## a) Load RData (diagnostics and barn swallow data base)
+    ## a) Load tidy barn swallow RData 
       load(here('data/3_bs_phys_data.RData'))
       
       
@@ -457,8 +457,7 @@
                                                 levels = c("mid-development", 
                                                 "late development")))
 
-      
-    ## h) Graph results of baseline vs stressed state glucose at mid and late
+    ## i) Graph results of baseline vs stressed state glucose at mid and late
         # development
         gluc.respon.by.dev.plot <- 
         ggplot(gluc.respon.by.dev, aes(x = glucose.sample, y = estimate, 
@@ -517,7 +516,7 @@ handling stress at mid- and late development') +
       
       print(gluc.respon.by.dev.plot)
       
-    ## f) Save Plot
+    ## j) Save Plot
       # use ggsave to save the linearization plot
       ggsave('gluc.respon.by.dev.plot.pdf', plot = gluc.respon.by.dev.plot, 
              device = NULL,

@@ -6,7 +6,7 @@
 #############                                                     #############
 #############                  By: Zach Laubach                   #############
 #############                created: 24 May 2022                 #############
-#############             last updated: 10 Sept 2024              #############
+#############             last updated: 13 Nov 2024               #############
 ###############################################################################
 
 
@@ -20,7 +20,6 @@
     # 3: Mid-development glucose by size models
     # 4: Late dev. glucose by mid-dev. size models
     # 5: Late dev. glucose by late dev. size models
-    # 6: Graph results
     
 
 
@@ -46,14 +45,14 @@
      
     ## b) Graph Plotting and Visualization Packages
       # load ggplot2 packages
-      library ('ggplot2')
-      
-      library('hrbrthemes')
-  
-      library('viridis')
-
+      # library ('ggplot2')
+      # 
+      # library('hrbrthemes')
+      # 
+      # library('viridis')
+      # 
       # load gridExtra packages
-      library('gridExtra')
+      # library('gridExtra')
       
     ## c) Modeling Packages
       # load lme4 packages
@@ -75,9 +74,9 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.2.3 (2023-03-15)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS 14.2.1
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
     
   
   ### 1.4 Set working directory 
@@ -117,7 +116,6 @@
       # Marginal and conditional R-squared
       r2_nakagawa(mid.base.gluc.wing.lmm)
       #, by_group=T)
-      
       
     ## b) Adjusted mid-development baseline glucose 
       # by mid-dev. right wing length
@@ -747,7 +745,7 @@
                                               !is.na(x = rt.wing.diff) &
                                               !is.na(x = nestling.band)
                                     # sensitivity analysis - 4min max baseline
-                                             & base.gluc.s < 240
+                                            # & base.gluc.s < 240
                                                ))
       
       summary(late.diff.gluc.diff.size.lmm.adj)    # model summary 

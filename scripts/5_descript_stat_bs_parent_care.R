@@ -6,7 +6,7 @@
 #############               Parental care behaviors               #############
 #############                  By: Zach Laubach                   #############
 #############                created: 3 June 2022                 #############
-#############              last updated: 20 Sept 2024              #############
+#############              last updated: 13 Nov 2024              #############
 ###############################################################################
 
 
@@ -53,12 +53,12 @@
       # load ggplot2 packages
       library ('ggplot2')
       
-      library('hrbrthemes')
-  
-      library('viridis')
-
-      # load gridExtra packages
-      library ('gridExtra')
+      # library('hrbrthemes')
+      # 
+      # library('viridis')
+      # 
+      # # load gridExtra packages
+      # library ('gridExtra')
       
     ## c) Modelling Packages
       # load nlme packages
@@ -82,9 +82,9 @@
     sessionInfo()
     
     # Developed in:   
-    # R version 4.0.2 (2020-06-22)
-    # Platform: x86_64-apple-darwin17.0 (64-bit)
-    # Running under: macOS Catalina 10.16
+      # R version 4.4.2 (2024-10-31)
+      # Platform: x86_64-apple-darwin20
+      # Running under: macOS Sequoia 15.1
     
   
   ### 1.4 Set working directory 
@@ -180,20 +180,21 @@
       
   ### 3.7 Univariate descriptive stats parental care behaviors           
     ## a) Descriptive stats parental care behaviors
+      # rate by 60 rescales from counts/minute to counts/hr
       univar_parent_care_behav <- parent_care %>%
         group_by(obs.state) %>%
         summarise(
                    n.tot.feed = sum(!is.na(total.feeding.visits.rate)),
-                   avg.tot.feed = round (mean(total.feeding.visits.rate, 
-                                                na.rm = T),3),
-                   stdev.tot.feed = round (sd(total.feeding.visits.rate, 
-                                                na.rm = T), 3),
-                   med.tot.feed = round(median(60*total.feeding.visits.rate,
-                                                 na.rm = T), 3),
-                   min.tot.feed = round(min(60*total.feeding.visits.rate,
-                                              na.rm = T), 3),
-                   max.tot.feed = round(max(60*total.feeding.visits.rate,
-                                              na.rm = T), 3),
+                   avg.tot.feed = round(60 * (mean(total.feeding.visits.rate, 
+                                                na.rm = T)), 3),
+                   stdev.tot.feed = round(60 * (sd(total.feeding.visits.rate, 
+                                                   na.rm = T)), 3),
+                   med.tot.feed = round(60 * (median(60*total.feeding.visits.rate,
+                                                     na.rm = T)), 3),
+                   min.tot.feed = round(60 * (min(60*total.feeding.visits.rate,
+                                                  na.rm = T)), 3),
+                   max.tot.feed = round(60 * (max(60*total.feeding.visits.rate,
+                                                  na.rm = T)), 3),
                   
                    n.tot.brood.dur = sum(!is.na(total.brooding.duration.prop)),
                    avg.tot.brood.dur = round (mean(total.brooding.duration.prop, 
@@ -308,7 +309,7 @@
                   copy = F)
    
     ## g) Format variable names
-      source_path <- paste("~/WD/Git/source_code/")
+      source_path <- paste(here('scripts/'))
       source(file = paste0(source_path, "format_var_names.R"))
       
       prim_merged <- FormatVarNames(prim_merged)
@@ -322,8 +323,8 @@
     
     ## h) Left join the disturb.min to parent_care data 
       parent_care <- prim_merged %>%
-        select(c(nest.id, obs.date, obs.med.temp)) %>%
-        left_join(parent_care, by = c('nest.id' = 'nest.id', 
+        select(c(female.band, obs.date, obs.med.temp)) %>%
+        left_join(parent_care, by = c('female.band' = 'female.band', 
                                        'obs.date' = 'obs.date'), 
                   copy = F)  
       
@@ -368,7 +369,7 @@
                                         !is.na(x = total.feeding.visits.rate)))  
       
       summary(feed.by.brood.sz.lm)    # model summary 
-      intervals(feed.by.brood.sz.lm)    # 95% CIs
+      #intervals(feed.by.brood.sz.lm)    # 95% CIs
       #plot(feed.by.brood.sz.lm)       # check residuals
       
     ## d) Association between median temp and feeding rate
@@ -590,7 +591,7 @@
         left_join(diff_size, by = c('nestling.band' = 'nestling.band'), 
                   copy = F)
       
-    ## d) Pivot glucose long to wide 
+    ## d) Pivot baseline glucose long to wide 
       base_gluc <- nestling_parent_care %>%
         select(nestling.band, sample.state, base.gluc) %>%
         filter(sample.state != 'early') %>%
@@ -603,7 +604,7 @@
         rename(mid.base.gluc = mid,
                late.base.gluc = late)
       
-    ## f) Pivot glucose long to wide 
+    ## f) Pivot stress response glucose long to wide 
       stress_gluc <- nestling_parent_care %>%
         select(nestling.band, sample.state, stress.gluc) %>%
         filter(sample.state != 'early') %>%
