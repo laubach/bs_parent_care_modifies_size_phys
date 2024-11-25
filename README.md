@@ -1,24 +1,24 @@
 # bs_parent_care_modifies_size_phys
-Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. (in revision) The American Naturalist. Parental care modifies the role of early-life size and growth in shaping future physiology.
+Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. (accepted) The American Naturalist. Does parental care modify the association of early-life size and growth with future physiology?
 
 
 #### By: Zachary M. Laubach
-#### Updated: 26 May 2023
+#### Updated: 25 May 2024
 
 ![Data collection](/cover_image.png "cover image")
 
 #### Purpose: This repository contains the scripts, data, and output necessary to reproduce the analysis for this paper. Scripts are modular and numbered in the order they are to be run. An overview of the repository organization and file descriptions are provided below.
 
 This analysis was performed in R
-	* R version 4.2.3 (2023-03-15)
-	* Platform: x86_64-apple-darwin17.0 (64-bit)
-	* Running under: macOS 14.2.1
+	  * R version 4.4.2 (2024-10-31)
+      * Platform: x86_64-apple-darwin20
+      * Running under: macOS Sequoia 15.1
 	
 ---- 
 
 ### File organization and description
 
-#### There are 4 subdirectores in this repository. 
+#### There are 3 subdirectores in this repository. 
 
 * _data -_ this subdirectory contains the raw data (.csv) and the processed data (.RData) for all analyses. The .RData follow the modular scripts such that the processed data saved at the end of one script is loaded in the sequential script, thus allowing the user to enter the analysis pipeline at an stage without having to re-run all previous steps. 
 
@@ -26,7 +26,7 @@ This analysis was performed in R
 
 * _output_ - this subdirectory contains summary tables and figures generated as part of the analysis.
 
-* _packrat -_ this subdirectory is created by the R package [packrat](https://rstudio.github.io/packrat/), which is a dependency management system for R. In this subdirectory are the specific versions of the R packages used in this analysis. 
+
 
 #### Script description
 
