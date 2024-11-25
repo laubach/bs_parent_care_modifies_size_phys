@@ -534,7 +534,7 @@
       #plot(gluc.diff.wing.low.care.lmm)       # check residuals
       
       ## Marginal and conditional R-squared
-      r2_nakagawa(gluc.diff.wing.low.care.lmm)
+      r2_nakagawa(gluc.diff.wing.low.care.lmm, tolerance = 1e-20)
       #, by_group=T)
       
     ## c) Use ggeffects to extract predicted values 
