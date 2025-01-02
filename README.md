@@ -1,18 +1,9 @@
 # bs_parent_care_modifies_size_phys
-<<<<<<< HEAD
-
 
 # Manuscript Citation
 Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. 2025. Does parental care modify the association of early-life size and growth with physiology? _The American Naturalist._
 
 
-=======
-
-# Manuscript Citation
-Laubach, Z. M., Madden, S. A., Pardue, A., and Safran, R. J. 2025. Does parental care modify the association of early-life size and growth with physiology? _The American Naturalist._
-
-
->>>>>>> 5ad9515f7906093e5d9ca31aa57646c239e48c3b
 ----
 
 ### Author names, affiliations and contact information
