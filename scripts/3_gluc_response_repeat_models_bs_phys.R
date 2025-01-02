@@ -192,7 +192,7 @@
   
       
   ### 3.2 Mid-development stress response models
-    ## Generates output for Table A7 and A8
+    ## Generates output for Table S7 and S8
       
     ## a) Mid-development unadjusted baseline to stress state glucose levels 
       mid.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample +
@@ -241,7 +241,7 @@
       
 
   ### 3.3 Late development stress response models
-    ## Generates output for Table A7 and A8
+    ## Generates output for Table S7 and S8
       
     ## a) Late development unadjusted baseline to stress state glucose levels 
       late.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample +
@@ -297,7 +297,7 @@
 ###############################################################################
             
   ### 4.1 ICC for baseline glucose across developmental stages
-    ## Generates output for Table A9 
+    ## Generates output for Table S9 
       
     ## a) ICC for baseline blood glucose
       base.gluc.icc.lmm <- lmer(glucose ~ 1 +
@@ -343,7 +343,7 @@
       
   ### 4.2 ICC for difference in blood glucose (stress - baseline) 
       # across develop. stages      
-    ## Generates output for Table A9
+    ## Generates output for Table S9
       
     ## a) ICC for difference in blood glucose (stress - baseline)
       diff.gluc.icc.lmm <- lmer(gluc.diff ~ 1 +
@@ -377,7 +377,7 @@
       ci.ICC1a(icc.diff.data,conflev=0.95)
 
   ### 4.3 ICC sensitivity analysis
-    ## Generates output for Table A10  
+    ## Generates output for Table S10  
       
     ## a) Subset to include samples in which blood glucose is sample in under
       # 4 min, since Cort does not sig. rise in birds until after 3 mins; 

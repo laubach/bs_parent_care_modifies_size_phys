@@ -12,7 +12,7 @@
 
 ### PURPOSE: Models of early-life size and growth as determinants of blood
             # glucose levels. This code generates output for Table 1 and 
-            # Table A11. 
+            # Table S11. 
   
   
   # Code Blocks
@@ -100,7 +100,7 @@
 ###############################################################################
     
   ### 3.1 Mid-development baseline glucose by wing length models
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
     
     ## a) Unadjusted mid-development baseline glucose 
       # by mid-dev. right wing length
@@ -148,7 +148,7 @@
       
   ### 3.2 Mid-development glucose difference (stressed - baseline) 
       # by right wing length models
-    ## Generates output for Table 1 and A11  
+    ## Generates output for Table 1 and S11  
       
     ## a) Unadjusted mid-development glucose difference  
       # by mid-dev. right wing length
@@ -197,7 +197,7 @@
   ### 3.5 Mid-development baseline glucose by relative nestling size 
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
     
     ## a) Unadjusted mid-development baseline glucose 
       # by mid-dev. relative nestling size
@@ -247,7 +247,7 @@
       # by relative nestling size
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11  
+    ## Generates output for Table 1 and S11  
       
     ## a) Unadjusted mid-development glucose difference 
       # by mid-dev. relative nestling size
@@ -299,7 +299,7 @@
 ###############################################################################       
       
   ### 4.1 Late development baseline glucose by mid-dev. wing length models
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
       
     ## a) Unadjusted late development baseline glucose 
       # by mid-dev. right wing length
@@ -347,7 +347,7 @@
       
   ### 4.2 Late development glucose difference (stressed - baseline) 
       # by mid-dev. right wing length models
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
       
     ## a) Unadjusted late development glucose difference  
       # by mid-dev. right wing length
@@ -396,7 +396,7 @@
   ### 4.3 Late development baseline glucose by mid-dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
       
     ## a) Unadjusted late development baseline glucose 
       # by mid-dev. relative nestling size
@@ -444,7 +444,7 @@
       # by mid-dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11 
+    ## Generates output for Table 1 and S11 
       
     ## a) Unadjusted late development glucose difference 
       # by mid-dev. relative nestling size
@@ -494,7 +494,7 @@
 ###############################################################################
     
   ### 5.1 Late development baseline glucose by late dev. wing length models
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
       
     ## a) Unadjusted late development baseline glucose 
       # by late dev. right wing length
@@ -543,7 +543,7 @@
         
   ### 5.2 Late development glucose difference (stressed - baseline) 
       # by late dev. right wing length models
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
       
     ## a) Unadjusted late development glucose difference  
       # by late dev. right wing length
@@ -592,7 +592,7 @@
   ### 5.3 Late development baseline glucose by late dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11  
+    ## Generates output for Table 1 and S11  
       
     ## a) Unadjusted late development baseline glucose 
       # by late dev. relative nestling size
@@ -640,7 +640,7 @@
       # by late dev. relative nestling size
       # NOTE: nestling size above and below average size by nest by
       # develop. state
-    ## Generates output for Table 1 and A11  
+    ## Generates output for Table 1 and S11  
       
     ## a) Unadjusted late development glucose difference 
       # by late dev. relative nestling size
@@ -686,7 +686,7 @@
 
   ### 5.5 Late development baseline glucose by diff (late - mid-development) 
       # nestling size
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
         
     ## a) Unadjusted late development baseline glucose 
       # by diff (late - mid-development) nestling size
@@ -735,7 +735,7 @@
       
   ### 5.6 Late development glucose difference (stressed - baseline) 
       # by diff (late - mid-development) nestling size
-    ## Generates output for Table 1 and A11
+    ## Generates output for Table 1 and S11
         
     ## a) Unadjusted late development glucose difference 
       # by diff (late - mid-development) nestling size

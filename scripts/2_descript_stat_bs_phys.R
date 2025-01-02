@@ -364,7 +364,7 @@
       
      
   ### 4.4 Univariate descriptive stats 
-    ## Generates output for Table A3
+    ## Generates output for Table S3
     ## a) Descriptive stats blood glucose
       univar_glucose <- nestling_parent_care_l %>%
         group_by(sample.state, glucose.sample) %>%
@@ -395,7 +395,7 @@
       grid.table(univar_glucose)
       dev.off()
       
-    ## Generates output for Table A3  
+    ## Generates output for Table S3  
     ## c) Descriptive stats morphology
       univar_morph_mites <- nestling_parent_care %>%
         group_by(sample.state) %>%
@@ -450,7 +450,7 @@
       grid.table(univar_morph_mites)
       dev.off()
       
-    ## Generates output for Table A3
+    ## Generates output for Table S3
     ## e) Descriptive stats blood growth
       univar_growth <- late_nestling_size %>%
         summarise (n.rt.wing.diff = sum(!is.na(rt.wing.diff)),
@@ -479,7 +479,7 @@
             
   ### 5.1 Simple associations mid-development (covariates with glucose)
     # Note: Covariates may include potential confounders or precision variables
-    ## Generates output for Table A6
+    ## Generates output for Table S6
       
     ## a) Mid-development difference in blood glucose by number of nestlings
       # in the nest
@@ -726,7 +726,7 @@
       
   ### 5.3 Simple associations mid-development (covariates with exposure)
     # Note: Covariates may include potential confounders or precision variables
-    ## Generates output for Table A5
+    ## Generates output for Table S5
       
     ## a) Mid-development right wing length by mid-dev. number of nestlings 
       # in the nest
@@ -768,7 +768,7 @@
       
   ### 5.4 Simple associations late development (covariates with exposure)
     # Note: Covariates may include potential confounders or precision variables
-    ## Generates output for Table A5
+    ## Generates output for Table S5
       
     ## a) Late development right wing length by number of nestlings 
       # in the nest

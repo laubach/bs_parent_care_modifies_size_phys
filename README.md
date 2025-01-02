@@ -194,13 +194,13 @@ Data collection also by: Sage A. Madden and Aleea Pardue
 
 *	_base.gluc.by.wing.by.care.strat.pred.plot.pdf -_ Predicted values and raw data for the relationship between right wing length and baseline glucose levels (stratified models)
 
-#### Plots used to create Figure A1
+#### Plots used to create Figure S1
 * _avg_feed_by_parent_care.pdf -_ Average count of feeding visits for by level of parental as determined by the feeding BLUPs
 
 #### A data exploration table
 * _univar_parent_care_trial.pdf -_ Descriptive statistics for weather conditions during the behavioral observation trials
 
-#### Data exploration tables used to create Table A3
+#### Data exploration tables used to create Table S3
 * _univar_parent_care_behav.pdf -_ Descriptive statistics parental behaviors during the behavioral observation trials
 
 * _univar_morph_mites.pdf -_ Descriptive statistics of nestling size/growth by developmental stage

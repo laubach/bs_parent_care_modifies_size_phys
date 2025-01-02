@@ -443,7 +443,8 @@
       # Looks pretty good
       summary(feeding_blups_glmm_nb)
       confint(feeding_blups_glmm_nb)
-      
+     
+    ## Generate output for Table S2   
     ## d) Compare model fit with AICtab (from bbmle)
       AICtab(feeding_blups_lmm, feeding_blups_glmm_poss, feeding_blups_glmm_nb)
       
@@ -700,6 +701,8 @@
       
       
   ### 8.2 Visual assessment of raw parental care data vs categories based on BLUPs 
+    ## Generates output for Figure S1. 
+      
     ## a) summarize the raw parental care data
       avg_feed_vs_feed_indx <-parent_care %>%
         group_by(nest.id) %>%
