@@ -192,6 +192,8 @@
   
       
   ### 3.2 Mid-development stress response models
+    ## Generates output for Table A7 and A8
+      
     ## a) Mid-development unadjusted baseline to stress state glucose levels 
       mid.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample +
                                        # nestling ID nested in nest
@@ -239,6 +241,8 @@
       
 
   ### 3.3 Late development stress response models
+    ## Generates output for Table A7 and A8
+      
     ## a) Late development unadjusted baseline to stress state glucose levels 
       late.base.stress.gluc.lmm <- lmer(glucose ~ glucose.sample +
                                          # nestling ID nested in nest
@@ -292,7 +296,9 @@
 ##############              4. Repeatability models              ##############
 ###############################################################################
             
-  ### 4.1 ICC for baseline glucose across develop. stages
+  ### 4.1 ICC for baseline glucose across developmental stages
+    ## Generates output for Table A9 
+      
     ## a) ICC for baseline blood glucose
       base.gluc.icc.lmm <- lmer(glucose ~ 1 +
                                        (1|nestling.band), 
@@ -337,6 +343,8 @@
       
   ### 4.2 ICC for difference in blood glucose (stress - baseline) 
       # across develop. stages      
+    ## Generates output for Table A9
+      
     ## a) ICC for difference in blood glucose (stress - baseline)
       diff.gluc.icc.lmm <- lmer(gluc.diff ~ 1 +
                            (1|nestling.band), 
@@ -369,6 +377,8 @@
       ci.ICC1a(icc.diff.data,conflev=0.95)
 
   ### 4.3 ICC sensitivity analysis
+    ## Generates output for Table A10  
+      
     ## a) Subset to include samples in which blood glucose is sample in under
       # 4 min, since Cort does not sig. rise in birds until after 3 mins; 
       # Cf. Wingfield JC, Smith JP, and Farner DS. Endocrine responses
@@ -413,7 +423,7 @@
 
   ### 5.1 Graph of regression estimates for glucose response at mid and late
       # development
-      
+    ## Plot used to create Figure 3
     ## a) Use broom to extract estimates and tidy the data frame
       mid.dev.gluc.respon <- tidy(mid.base.stress.gluc.mmean.adj, 
                                   conf.int = T) 

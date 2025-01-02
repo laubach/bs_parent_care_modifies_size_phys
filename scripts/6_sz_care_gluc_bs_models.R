@@ -115,7 +115,7 @@
     
   ### 3.1 Late dev. baseline glucose by wing length by parental care (feed)
       # interaction models
-
+    ## Generates output for Table A12
     ## a) Late dev. baseline glucose by late dev.
       # right wing length x feed.indx
       base.gluc.wing.x.care.lmm <- lmerTest::lmer(base.gluc ~ scale(rt.wing.length) *
@@ -245,7 +245,7 @@
       
   ### 4.1 Late dev. baseline glucose by wing length, stratified by parental 
       # care models  **** STRATIFIED MODELS
-    
+    ## Plot used to create Figure 4 and generate output for Table A12
     ## a) Low parental care: late dev. baseline glucose by late dev. 
       # right wing length 
       base.gluc.wing.low.care.lmm <- lmer(base.gluc ~ 
@@ -382,7 +382,7 @@
       
   ### 4.2 Late dev. baseline glucose by growth, stratified by parental 
       # care models. **** STRATIFIED MODELS
-      
+    ## Plot used to create Figure 4 and generate output for Table A12  
     ## a) Low parental care: late dev. baseline glucose by growth
       base.gluc.grow.low.care.lmm <- lmer(base.gluc ~ 
                                         scale(rt.wing.diff) +
@@ -512,7 +512,7 @@
       
   ### 4.3 Late dev. glucose response (stress - baseline) by rt.wing.length, 
       # stratified by parental care models  **** STRATIFIED MODELS
-      
+    ## Plot used to create Figure 4 and generate output for Table A12 
     ## a) Low parental care: late dev. glucose response by rt.wing.length
       gluc.diff.wing.low.care.lmm <- lmer(gluc.diff ~ 
                                         scale(rt.wing.length) +
@@ -641,7 +641,7 @@
       
   ### 4.4 Late dev. glucose response (stress - baseline) by growth, 
       # stratified by parental care models. **** STRATIFIED MODELS
-      
+    ## Plot used to create Figure 4 and generate output for Table A12
     ## a) Low parental care: late dev. glucose response by growth
       gluc.diff.grow.low.care.lmm <- lmer(gluc.diff ~ 
                                             scale(rt.wing.diff) +
@@ -775,6 +775,7 @@
       
   ### 5.1 Parental care stratified graph of regression estimates for late 
       # development baseline glucose  by late development wing length
+    ## Plot used to create Figure 4
     ## a) Low parental care model: extract estimates and tidy the data frame 
   
       base.gluc.wing.low.care.est <- tidy(base.gluc.wing.low.care.lmm, 
@@ -876,6 +877,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
       
   ### 5.2 Parental care stratified graph of regression estimates for late 
       # development baseline glucose by growth (late - mid wing length)
+    ## Plot used to create Figure 4
     ## a) Low parental care model: extract estimates and tidy the data frame 
       base.gluc.grow.low.care.est <- tidy(base.gluc.grow.low.care.lmm, 
                                           conf.int = T, 
@@ -975,6 +977,7 @@ blood glucose (mg/dl) from models stratified by amount of parental care') +
       
   ### 5.3 Parental care stratified graph of regression estimates for late 
       # development glucose response by late development wing length
+    ## Plot used to create Figure 4
     ## a) Low parental care model: extract estimates and tidy the data frame 
       gluc.diff.wing.low.care.est <- tidy(gluc.diff.wing.low.care.lmm, 
                                           conf.int = T, 
@@ -1074,6 +1077,7 @@ response (stress - baseline) from models stratified by amount of parental care')
       
   ### 5.4 Parental care stratified graph of regression estimates for late 
       # development glucose response by growth (late - mid wing length)
+    ## Plot used to create Figure 4
     ## a) Low parental care model: extract estimates and tidy the data frame 
       gluc.diff.grow.low.care.est <- tidy(gluc.diff.grow.low.care.lmm, 
                                           conf.int = T, 

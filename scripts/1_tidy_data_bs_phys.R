@@ -300,6 +300,12 @@
                                                              "late")))
       levels(parent_care_trial$obs.state)
       
+      parent_care_trial <- gov_nest_temp_data %>%
+        select(c(female.band, obs.date, obs.med.temp)) %>%
+        left_join(parent_care_trial, by = c('female.band' = 'female.band', 
+                                      'obs.date' = 'obs.date'), 
+                  copy = F)  
+      
    
   ### 3.3 Tidy parent_care_obs data
     ## a) Format data to all lower case
@@ -330,7 +336,7 @@
                  total.an.duration / obs.duration) %>%
         mutate(total.brooding.duration.prop = 
                  total.brooding.duration / obs.duration)
-        
+      
     ## f) Left join parent_care_obs to parent_care_trial 
       parent_care <- parent_care_trial  %>%
         left_join(select(parent_care_obs, -c(...1, female.band, nest, site, 
@@ -339,6 +345,7 @@
                          'obs.date' = 'obs.date'), 
                   copy = F)
       
+    ## g) Remove two nests   
 #***NOTE: Remove Hayes 7 and Schapps 131.2 because not used in main analysis
   #* Hayes 7 no mid and late nestling measurements (depredation)
   #* Schaaps 131.2 second brood

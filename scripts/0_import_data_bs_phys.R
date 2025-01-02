@@ -76,6 +76,9 @@
       nest_parent_summry <- read_csv(
         here('data/nestling_parent_care_summary.csv'))
       
+    ## e) Import nest temperature data from govee during obs trials.
+      gov_nest_temp_data <- read_csv(here('data/gov_nest_temp_data.csv'))
+      
   
 
 ###############################################################################
@@ -88,5 +91,6 @@
       # RData file.
       save(file = here('data/1_raw_bs_phys_data.RData'), 
            list = c('nestling', 'parent_care_trial',
-                    'parent_care_obs', 'nest_parent_summry'))
+                    'parent_care_obs', 'nest_parent_summry', 
+                    'gov_nest_temp_data'))
     

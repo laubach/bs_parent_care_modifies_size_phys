@@ -98,10 +98,9 @@
   
   ### 2.1 Load RData
     ## a) Load RData tidy barn swallow data (parental care data)
-    load(here('data/2_5_tidy_bs_phys_data.RData'))
-    load(here('data/tidy_parent_nestl_weather_data_8-23_with_pci.RData'))
+      load(here('data/2_5_tidy_bs_phys_data.RData'))
     
-      
+    
       
 ###############################################################################
 ##############          3. Univariate descriptive stats          ##############
@@ -307,32 +306,9 @@
         left_join(disturb_data, by = c('nest.id' = 'nest.id', 
                                        'obs.date' = 'sample.date'), 
                   copy = F)
-   
-    ## g) Format variable names
-      source_path <- paste(here('scripts/'))
-      source(file = paste0(source_path, "format_var_names.R"))
-      
-      prim_merged <- FormatVarNames(prim_merged)
-      
- #***NOTE: Remove Hayes 7 and Schaaps 131.2 because not used in main analysis
-     #* Hayes 7 no mid and late nestling measurements (depredation)
-    #* Schaaps 131.2 second brood
-      prim_merged <- prim_merged  %>%
-        filter(nest.id != 'hayes 7') %>%
-        filter(nest.id != 'schaaps 131') 
-    
-    ## h) Left join the disturb.min to parent_care data 
-      parent_care <- prim_merged %>%
-        select(c(female.band, obs.date, obs.med.temp)) %>%
-        left_join(parent_care, by = c('female.band' = 'female.band', 
-                                       'obs.date' = 'obs.date'), 
-                  copy = F)  
-      
-    ## i) Clean up environment
-      rm(disturb_data, nestl_merged, noaa, prim_merged, govee_daily
-         #, early_nest_brood, mid_nest_brood, mid_nest_feed, 
-         #late_nest_feed, brood, feed
-         )
+
+    ## g) Clean up environment
+      rm(disturb_data)
       
     
 
