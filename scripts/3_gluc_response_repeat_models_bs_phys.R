@@ -516,7 +516,7 @@ handling stress at mid- and late development') +
               legend.position = c(0.3, 0.94),
               legend.key = element_blank()) +
         xlab(expression(bold("(sampling time)"))) +
-        ylab(expression(bold("marginal mean and SE blood glucose (mg/dl)"))) 
+        ylab(expression(bold("marginal mean and SE blood glucose (mg/dL)"))) 
        
           
           #  geom_point(data = nestling_parent_care_l, aes(x=glucose.sample, y = glucose)) +

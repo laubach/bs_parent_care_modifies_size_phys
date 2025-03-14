@@ -153,7 +153,7 @@
                           labels = c('baseline', 'stressed')) +
         #theme_ipsum() +
         labs(title = 'Histogram of serially sampled glucose at mid-development',
-             x ='Glucose (mg/dl)', 
+             x ='Glucose (mg/dL)', 
              y ='Frequency') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         theme(axis.ticks = element_blank()) + # remove axis ticks
@@ -189,7 +189,7 @@
                           labels = c('baseline', 'stressed')) +
         #theme_ipsum() +
         labs(title = 'Histogram of serially sampled glucose at late development',
-             x ='Glucose (mg/dl)', 
+             x ='Glucose (mg/dL)', 
              y ='Frequency') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         theme(axis.ticks = element_blank()) + # remove axis ticks
@@ -250,7 +250,7 @@
               legend.text=element_text(size=14),
               #legend.position = 'none', #c(0.91, 0.94),
               legend.key = element_blank()) +
-        xlab(expression(italic("Glucose response(mg/dl)"))) +
+        xlab(expression(italic("Glucose response(mg/dL)"))) +
         ylab(expression
              (atop(bold("Frequency"))))
       
@@ -279,7 +279,7 @@
                                      'positive', 'stressed')) +
         labs(title = 'Scatter plot of serially sampled glucose',
              x ='sampling time (s)', 
-             y ='glucose (mg/dl)') +
+             y ='glucose (mg/dL)') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         # bold and size title and axes labels
         theme(text = element_text(size=22, face = 'bold')) +
@@ -327,7 +327,7 @@
                                       'positive', 'stressed')) +
         labs(title = 'Scatter plot of serially sampled glucose',
              x ='sampling time (s)', 
-             y ='glucose (mg/dl)') +
+             y ='glucose (mg/dL)') +
         theme(plot.title = element_text(hjust = 0.5)) + # center title
         # bold and size title and axes labels
         theme(text = element_text(size=22, face = 'bold')) +
