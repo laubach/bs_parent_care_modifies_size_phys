@@ -745,9 +745,9 @@
                                          size=24, angle=0, 
                                          margin = margin(t = 0, r = 10, 
                                                          b = 0, l = 0)),
-              legend.title = element_text(size = 20),
+              legend.title = element_text(size = 19),
               legend.text = element_text(size=20),
-              legend.position = c(0.19, 0.9),
+              legend.position = c(0.18, 0.9),
               legend.key = element_blank()) +
         xlab(expression(bold('right wing growth (mm)'))) +
         ylab(expression(bold('glucose response (mg/dL)'))) 
@@ -835,7 +835,7 @@
         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=24, face = 'bold')) +
+        theme(text = element_text(size=28, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
@@ -845,11 +845,11 @@
                                        size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=24, angle=0,
+                                         size=28, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=24, angle=0, 
+                                         size=28, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
@@ -859,7 +859,7 @@
         xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
              (atop(bold("beta estimate and 95% CI"),
-    paste(italic("baseline glucose (mg/dL) / 1 SD wing length"))))) 
+    paste(italic("base. gluc. (mg/dL) / 1 SD wing leng."))))) 
       
       
     print(base.gluc.by.wing.by.care.plot)
@@ -935,7 +935,7 @@
         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=24, face = 'bold')) +
+        theme(text = element_text(size=28, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
@@ -945,11 +945,11 @@
                                        size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=24, angle=0,
+                                         size=28, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=24, angle=0, 
+                                         size=28, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
@@ -959,7 +959,7 @@
         xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
              (atop(bold("beta estimate and 95% CI"),
-                   paste(italic("baseline glucose (mg/dL) / 1 SD growth"))))) 
+                   paste(italic("base. gluc. (mg/dL) / 1 SD growth"))))) 
       
       
       print(base.gluc.by.grow.by.care.plot)
@@ -1035,7 +1035,7 @@
         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=24, face = 'bold')) +
+        theme(text = element_text(size=28, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
@@ -1045,11 +1045,11 @@
                                        size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=24, angle=0,
+                                         size=28, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=24, angle=0, 
+                                         size=28, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
@@ -1059,7 +1059,7 @@
         xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
              (atop(bold("beta estimate and 95% CI"),
-                   paste(italic("glucose response (mg/dL) / 1 SD wing length"))))) 
+                   paste(italic("gluc. respon. (mg/dL) / 1 SD wing leng."))))) 
       
       
       print(gluc.diff.by.wing.by.care.plot)
@@ -1135,7 +1135,7 @@
         theme(plot.title = element_text(hjust = 0.5, size = 14)) + # center title
         theme(plot.subtitle = element_text(hjust = 0.5, size = 14)) + 
         # bold and size title and axes labels
-        theme(text = element_text(size=24, face = 'bold')) +
+        theme(text = element_text(size=28, face = 'bold')) +
         theme(legend.position = 'none') +
         theme(axis.ticks = element_blank()) + # remove axis ticks
         # remove background color
@@ -1145,11 +1145,11 @@
                                        size = 0.5, linetype = 'solid')) +
         # change axes font style, color, size, angle, margin, and legend
         theme(axis.text.x = element_text(face='bold', color='black', 
-                                         size=24, angle=0,
+                                         size=28, angle=0,
                                          margin = margin(t = 10, r = 0, 
                                                          b = 10, l = 0)),
               axis.text.y = element_text(face='bold', color='black', 
-                                         size=24, angle=0, 
+                                         size=28, angle=0, 
                                          margin = margin(t = 0, r = 0, 
                                                          b = 0, l = 10)),
               legend.title=element_blank(),
@@ -1159,7 +1159,7 @@
         xlab(expression(italic("models stratified by parental care"))) +
         ylab(expression
              (atop(bold("beta estimate and 95% CI"),
-                   paste(italic("glucose response (mg/dL) / 1 SD growth"))))) 
+                   paste(italic("gluc. respon. (mg/dL) / 1 SD growth"))))) 
       
       
       print(gluc.diff.by.grow.by.care.plot)
